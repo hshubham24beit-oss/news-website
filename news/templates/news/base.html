@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Pillai's News{% endblock %}</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  {% load static %}
+  {% load news_extras %}
+  <link rel="stylesheet" href="{% static 'css/news.css' %}">
+</head>
+<body>
+  <header class="header">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;">
+      <div class="brand">Pillai's News</div>
+      <div style="color:#fff; font-weight:700;">Menu ≡</div>
+    </div>
+  </header>
+
+  <nav class="navbar">
+    <div class="container">
+      <a href="{% url 'home' %}">Home</a>
+      {% get_categories as categories_list %}
+      {% for cat in categories_list %}
+        <a href="{% url 'category-news' cat.id %}">{{ cat.name }}</a>
+      {% endfor %}
+      {% if not categories_list %}
+        <a href="{% url 'home' %}">World</a>
+        <a href="{% url 'home' %}">Politics</a>
+        <a href="{% url 'home' %}">Tech</a>
+        <a href="{% url 'home' %}">Sports</a>
+        <a href="{% url 'home' %}">Entertainment</a>
+      {% endif %}
+    </div>
+  </nav>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div>© {% now "Y" %} Pillai's News — Built with Django</div>
+
+    </div>
+  </footer>
+</body>
+</html>

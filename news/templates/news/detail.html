@@ -1,0 +1,21 @@
+{% extends "news/base.html" %}
+{% load static %}
+{% block title %}{{ news.title }} - Pillai's News{% endblock %}
+
+{% block content %}
+<div style="max-width:900px; margin:18px auto;">
+  <div class="hero" style="padding:0;">
+    {% if news.image %}
+      <img src="{{ news.image.url }}" class="hero-img" style="width:100%; height:420px; object-fit:cover; border-radius:10px 10px 0 0;" alt="">
+    {% else %}
+      <img src="{% static 'images/hero-placeholder.jpg' %}" class="hero-img" style="width:100%; height:420px; object-fit:cover; border-radius:10px 10px 0 0;" alt="">
+    {% endif %}
+    <div style="background:var(--card-bg); padding:22px; border-radius:0 0 10px 10px; box-shadow:var(--shadow);">
+      <h1 style="margin-top:0;">{{ news.title }}</h1>
+      <div class="meta">{{ news.created_at|date:"F j, Y" }} • {{ news.category.name }}</div>
+      <div style="margin-top:18px; font-size:16px; line-height:1.8;">{{ news.content|linebreaks }}</div>
+      <a href="{% url 'home' %}" style="display:inline-block;margin-top:20px;color:var(--brand);font-weight:700;">← Back to Home</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
