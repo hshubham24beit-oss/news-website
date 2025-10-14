@@ -5,43 +5,44 @@
   <title>{% block title %}Pillai's News{% endblock %}</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   {% load static %}
-  {% load news_extras %}
   <link rel="stylesheet" href="{% static 'css/news.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="header">
-    <div class="container" style="display:flex;justify-content:space-between;align-items:center;">
+  <header class="site-header">
+    <div class="container header-inner">
       <div class="brand">Pillai's News</div>
-      <div style="color:#fff; font-weight:700;">Menu ≡</div>
+      <button class="menu-toggle" aria-label="Menu">≡</button>
     </div>
   </header>
 
-  <nav class="navbar">
-    <div class="container">
-      <a href="{% url 'home' %}">Home</a>
-      {% get_categories as categories_list %}
-      {% for cat in categories_list %}
-        <a href="{% url 'category-news' cat.id %}">{{ cat.name }}</a>
-      {% endfor %}
-      {% if not categories_list %}
-        <a href="{% url 'home' %}">World</a>
-        <a href="{% url 'home' %}">Politics</a>
-        <a href="{% url 'home' %}">Tech</a>
-        <a href="{% url 'home' %}">Sports</a>
-        <a href="{% url 'home' %}">Entertainment</a>
-      {% endif %}
+  <nav class="navbar" role="navigation">
+    <div class="container nav-inner">
+      <a href="{% url 'home' %}" class="nav-link">Home</a>
+      <a href="{% url 'category-news' 1 %}" class="nav-link">World</a>
+      <a href="{% url 'category-news' 2 %}" class="nav-link">Politics</a>
+      <a href="{% url 'category-news' 3 %}" class="nav-link">Tech</a>
+      <a href="{% url 'category-news' 4 %}" class="nav-link">Sports</a>
+      <a href="{% url 'category-news' 5 %}" class="nav-link">Entertainment</a>
     </div>
   </nav>
 
-  <main class="container">
+  <main class="container main-grid">
     {% block content %}{% endblock %}
   </main>
 
-  <footer class="footer">
-    <div class="container">
-      <div>© {% now "Y" %} Pillai's News — Built with Django</div>
-
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>© Pillai's News — Built with Django</div>
+      <div class="social">Follow us • <span>f</span> <span>t</span></div>
     </div>
   </footer>
+
+  <!-- Optional JS to toggle menu on mobile -->
+  <script>
+    document.querySelector('.menu-toggle')?.addEventListener('click', () => {
+      document.querySelector('.navbar')?.classList.toggle('open');
+    });
+  </script>
 </body>
 </html>

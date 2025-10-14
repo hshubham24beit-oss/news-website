@@ -1,75 +1,101 @@
 {% extends "news/base.html" %}
 {% load static %}
-{% block title %}Home - Pillai's News{% endblock %}
+{% block title %}Home — Pillai's News{% endblock %}
 
 {% block content %}
-<div class="layout">
-  <!-- left: main content -->
-  <div>
-    <div class="hero">
-      <div class="hero-top">
-        {% if news_list and news_list.0.image %}
-          <img src="{{ news_list.0.image.url }}" class="hero-img" alt="">
-        {% else %}
-          <img src="{% static 'images/hero-placeholder.jpg' %}" class="hero-img" alt="">
-        {% endif %}
-        <div class="hero-content">
-          {% if news_list %}
-            <h1>{{ news_list.0.title }}</h1>
-            <div class="meta">{{ news_list.0.created_at|date:"F j, Y" }}</div>
-            <p style="color:var(--muted); margin-top:10px;">{{ news_list.0.content|truncatewords:30 }}</p>
-            <a href="{% url 'news-detail' news_list.0.id %}" style="display:inline-block;margin-top:12px;font-weight:700;color:var(--brand);text-decoration:none;">Read more →</a>
-          {% else %}
-            <h1>Welcome to Pillai's News</h1>
-            <p style="color:var(--muted)">No articles yet. Add some from the admin panel.</p>
-          {% endif %}
-        </div>
-      </div>
-    </div>
+<div class="grid-left">
+  <!-- HERO -->
+  <section class="hero">
+    {% if hero %}
+      {% if hero.image %}
+        <img src="{{ hero.image.url }}" alt="{{ hero.title }}" class="hero-img">
+      {% else %}
+        <img src="{% static 'images/hero.jpg' %}" alt="{{ hero.title }}" class="hero-img">
+      {% endif %}
+      <h1 class="hero-title">{{ hero.title }}</h1>
+      <div class="muted">{{ hero.created_at|date:"F j, Y" }} • {{ hero.category.name }}</div>
+      <hr class="hero-divider">
+    {% else %}
+      <img src="{% static 'images/hero.jpg' %}" alt="Hero" class="hero-img">
+      <h1 class="hero-title">Welcome to Pillai's News</h1>
+      <hr class="hero-divider">
+    {% endif %}
+  </section>
 
-    <div class="section-title">Latest News</div>
-    <div class="latest-grid">
-      {% for n in news_list %}
-        <a class="card-news" href="{% url 'news-detail' n.id %}">
-          {% if n.image %}
-            <img src="{{ n.image.url }}" alt="{{ n.title }}">
-          {% else %}
-            <img src="{% static 'images/card-placeholder.jpg' %}" alt="{{ n.title }}">
-          {% endif %}
-          <div class="card-body">
-            <div class="card-title">{{ n.title|truncatechars:70 }}</div>
-            <div class="card-meta">{{ n.created_at|date:"M d, Y" }} • {{ n.category.name }}</div>
-          </div>
-        </a>
+  <!-- LATEST 4 CARDS -->
+  <section class="latest-section">
+    <h2>Latest News</h2>
+    <div class="cards-grid">
+      {% for article in latest_four %}
+        <article class="card">
+          <a href="{% url 'news-detail' article.id %}">
+            {% if article.image %}
+              <div class="card-thumb" style="background-image: url('{{ article.image.url }}');"></div>
+            {% else %}
+              <div class="card-thumb" style="background-image: url('{% static "images/thumb-fallback.jpg" %}');"></div>
+            {% endif %}
+            <div class="card-meta">
+              <span class="badge">{{ article.category.name }}</span>
+              <h3 class="card-title">{{ article.title }}</h3>
+              <div class="muted">{{ article.created_at|date:"M d, Y" }}</div>
+            </div>
+          </a>
+        </article>
       {% empty %}
-        <p style="color:var(--muted)">No news available. Add items via the admin.</p>
+        <p>No recent news available.</p>
       {% endfor %}
+    </div>
+  </section>
+
+  <!-- MORE NEWS (optional list) -->
+  <section class="more-news">
+    {% if news_list|length > 5 %}
+      <h3 style="margin-top:22px">More News</h3>
+      {% for article in news_list|slice:"5:15" %}
+        <div class="list-item">
+          {% if article.image %}
+            <div class="list-thumb" style="background-image:url('{{ article.image.url }}')"></div>
+          {% else %}
+            <div class="list-thumb" style="background-image:url('{% static "images/thumb-fallback.jpg" %}')"></div>
+          {% endif %}
+          <div class="list-body">
+            <h4><a href="{% url 'news-detail' article.id %}">{{ article.title }}</a></h4>
+            <p class="muted">{{ article.created_at|date:"M d, Y" }} • {{ article.category.name }}</p>
+            <p class="muted">{{ article.text|truncatewords:20 }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </section>
+</div>
+
+<!-- SIDEBAR: Trending / Weather / About -->
+<aside class="grid-right">
+  <div class="card sidebar-card trending">
+    <h3>Trending</h3>
+    <ul class="trending-list">
+      {% for t in trending_list %}
+        <li><a href="{% url 'news-detail' t.id %}">{{ t.title|truncatechars:70 }}</a></li>
+      {% empty %}
+        <li style="color:var(--muted)">No trending articles.</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="card sidebar-card weather">
+    <h3>Weather</h3>
+    <div class="weather-row">
+      <img src="{% static 'images/sun.png' %}" alt="sun" class="weather-icon">
+      <div>
+        <div class="weather-temp">Sunny</div>
+        <div class="muted">Pune · 29°C</div>
+      </div>
     </div>
   </div>
 
-  <!-- right: sidebar -->
-  <aside class="sidebar">
-    <div class="card">
-      <h4 style="margin:0 0 8px 0;">Trending</h4>
-      <ul class="trending" style="padding-left:0; margin:0;">
-        {% for t in news_list|slice:":4" %}
-          <li><a href="{% url 'news-detail' t.id %}">{{ t.title|truncatechars:60 }}</a></li>
-        {% empty %}
-          <li style="color:var(--muted)">No trending articles.</li>
-        {% endfor %}
-      </ul>
-    </div>
-
-    <div class="card">
-      <h4 style="margin:0 0 8px 0;">Weather</h4>
-      <div style="display:flex;align-items:center;gap:12px">
-        <img src="{% static 'images/sun.png' %}" alt="sun" width="48" style="display:block;">
-        <div>
-          <div style="font-weight:700">Sunny</div>
-          <div style="color:var(--muted)">Pune · 29°C</div>
-        </div>
-      </div>
-    </div>
-  </aside>
-</div>
+  <div class="card sidebar-card about">
+    <h3>About</h3>
+    <p class="muted">Pillai's News — sample project built with Django. Use the admin to add articles & images.</p>
+  </div>
+</aside>
 {% endblock %}
