@@ -3,19 +3,43 @@
 {% block title %}{{ news.title }} - Pillai's News{% endblock %}
 
 {% block content %}
-<div style="max-width:900px; margin:18px auto;">
-  <div class="hero" style="padding:0;">
-    {% if news.image %}
-      <img src="{{ news.image.url }}" class="hero-img" style="width:100%; height:420px; object-fit:cover; border-radius:10px 10px 0 0;" alt="">
-    {% else %}
-      <img src="{% static 'images/hero-placeholder.jpg' %}" class="hero-img" style="width:100%; height:420px; object-fit:cover; border-radius:10px 10px 0 0;" alt="">
-    {% endif %}
-    <div style="background:var(--card-bg); padding:22px; border-radius:0 0 10px 10px; box-shadow:var(--shadow);">
-      <h1 style="margin-top:0;">{{ news.title }}</h1>
-      <div class="meta">{{ news.created_at|date:"F j, Y" }} • {{ news.category.name }}</div>
-      <div style="margin-top:18px; font-size:16px; line-height:1.8;">{{ news.content|linebreaks }}</div>
-      <a href="{% url 'home' %}" style="display:inline-block;margin-top:20px;color:var(--brand);font-weight:700;">← Back to Home</a>
+<div class="container" style="max-width:900px; margin:30px auto; padding:0 16px;">
+  <article class="news-detail">
+
+    <!-- Hero Image -->
+    <div class="hero" style="padding:0; border-radius:10px; overflow:hidden; box-shadow:var(--shadow);">
+      {% if news.image %}
+        <img src="{{ news.image.url }}" 
+             alt="{{ news.title }}" 
+             class="hero-img" 
+             style="width:100%; height:420px; object-fit:cover;">
+      {% else %}
+        <img src="{% static 'images/hero-placeholder.jpg' %}" 
+             alt="Placeholder" 
+             class="hero-img" 
+             style="width:100%; height:420px; object-fit:cover;">
+      {% endif %}
     </div>
-  </div>
+
+    <!-- News Content -->
+    <div style="background:var(--card-bg); padding:24px 28px; border-radius:10px; margin-top:-8px; box-shadow:var(--shadow); position:relative; top:-10px;">
+      <h1 style="margin-top:0; font-size:28px; line-height:1.3;">{{ news.title }}</h1>
+      <div class="meta" style="color:var(--muted); font-size:15px; margin-bottom:16px;">
+        {{ news.created_at|date:"F j, Y" }} • {{ news.category.name }}
+      </div>
+
+      <div class="news-body" style="margin-top:10px; font-size:17px; line-height:1.8; color:var(--text-color); white-space:pre-line;">
+        {{ news.content|linebreaks }}
+      </div>
+
+      <hr style="margin:26px 0; border:none; border-top:1px solid rgba(0,0,0,0.1);">
+      
+      <a href="{% url 'home' %}" 
+         class="back-link" 
+         style="display:inline-block; color:var(--brand); font-weight:700; text-decoration:none;">
+        ← Back to Home
+      </a>
+    </div>
+  </article>
 </div>
 {% endblock %}

@@ -6,21 +6,26 @@
 <div class="grid-left">
   <!-- HERO -->
   <section class="hero">
-    {% if hero %}
+  {% if hero %}
+    <a href="{% url 'news-detail' hero.id %}" class="hero-link">
       {% if hero.image %}
         <img src="{{ hero.image.url }}" alt="{{ hero.title }}" class="hero-img">
       {% else %}
         <img src="{% static 'images/hero.jpg' %}" alt="{{ hero.title }}" class="hero-img">
       {% endif %}
-      <h1 class="hero-title">{{ hero.title }}</h1>
-      <div class="muted">{{ hero.created_at|date:"F j, Y" }} • {{ hero.category.name }}</div>
-      <hr class="hero-divider">
-    {% else %}
-      <img src="{% static 'images/hero.jpg' %}" alt="Hero" class="hero-img">
-      <h1 class="hero-title">Welcome to Pillai's News</h1>
-      <hr class="hero-divider">
-    {% endif %}
-  </section>
+      <div class="hero-text">
+        <h1 class="hero-title">{{ hero.title }}</h1>
+        <div class="muted">{{ hero.created_at|date:"F j, Y" }} • {{ hero.category.name }}</div>
+      </div>
+    </a>
+    <hr class="hero-divider">
+  {% else %}
+    <img src="{% static 'images/hero.jpg' %}" alt="Hero" class="hero-img">
+    <h1 class="hero-title">Welcome to Pillai's News</h1>
+    <hr class="hero-divider">
+  {% endif %}
+</section>
+
 
   <!-- LATEST 4 CARDS -->
   <section class="latest-section">
@@ -69,33 +74,52 @@
   </section>
 </div>
 
-<!-- SIDEBAR: Trending / Weather / About -->
-<aside class="grid-right">
-  <div class="card sidebar-card trending">
-    <h3>Trending</h3>
+<!-- Right Sidebar -->
+<aside class="sidebar">
+  
+  <!-- TRENDING SECTION -->
+  <section class="sidebar-card trending">
+    <h2>🔥 Trending</h2>
     <ul class="trending-list">
-      {% for t in trending_list %}
-        <li><a href="{% url 'news-detail' t.id %}">{{ t.title|truncatechars:70 }}</a></li>
+      {% for article in trending_list|slice:":5" %}
+        <li>
+          <a href="{% url 'news-detail' article.id %}">{{ article.title }}</a>
+        </li>
       {% empty %}
-        <li style="color:var(--muted)">No trending articles.</li>
+        <li>No trending news available.</li>
       {% endfor %}
     </ul>
-  </div>
+  </section>
 
-  <div class="card sidebar-card weather">
-    <h3>Weather</h3>
-    <div class="weather-row">
-      <img src="{% static 'images/sun.png' %}" alt="sun" class="weather-icon">
-      <div>
-        <div class="weather-temp">Sunny</div>
-        <div class="muted">Pune · 29°C</div>
+  <!-- WEATHER SECTION -->
+  <section class="sidebar-card weather">
+    <h2>🌤 Weather Update</h2>
+    <div class="weather-box">
+      <div class="temp">28°C</div>
+      <div class="condition">Partly Cloudy</div>
+      <div class="location">Mumbai, India</div>
+      <div class="details">
+        <p>💧 Humidity: 62%</p>
+        <p>🌬 Wind: 9 km/h</p>
+        <p>🌅 Sunrise: 6:22 AM</p>
+        <p>🌇 Sunset: 6:11 PM</p>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="card sidebar-card about">
-    <h3>About</h3>
-    <p class="muted">Pillai's News — sample project built with Django. Use the admin to add articles & images.</p>
-  </div>
+  <!-- ABOUT SECTION -->
+  <section class="sidebar-card about">
+    <h2>📘 About Pillai’s News</h2>
+    <p>
+      Pillai’s News brings you the latest and most reliable information
+      from around the globe — from politics and sports to tech and entertainment.
+      Our goal is to deliver clear, concise, and verified updates to keep you informed.
+    </p>
+    <p>
+      <strong>Founded:</strong> 2025<br>
+      <strong>Headquarters:</strong> Navi Mumbai, India
+    </p>
+  </section>
+
 </aside>
 {% endblock %}
