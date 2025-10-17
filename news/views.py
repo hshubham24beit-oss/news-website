@@ -3,28 +3,25 @@ from django.shortcuts import render, get_object_or_404
 from .models import News, Category
 
 def home(request):
-    # all news ordered newest first
-    all_news = News.objects.order_by('-created_at')
+    # Get all news ordered by newest first
+    news_qs = News.objects.order_by('-created_at')
 
-    # hero article: the newest one (None if no articles)
-    hero = all_news.first()
+    # Set hero as the newest (ID 5 in your case)
+    hero = news_qs.first()
 
-    # latest four (excluding hero if it exists)
-    if hero:
-        latest_four = list(all_news[1:5])   # items 2..5 (max 4)
-    else:
-        latest_four = list(all_news[:4])    # first 4 if no hero
+    # Get next 4 latest excluding hero
+    latest_four = news_qs.exclude(id=hero.id)[:4] if hero else []
 
-    # Example trending list (you can change criteria)
-    trending_list = News.objects.order_by('-created_at')[:5]
+    # Trending can just reuse the same 4 for now
+    trending_list = news_qs.exclude(id=hero.id)[:4] if hero else []
 
-    return render(request, 'news/home.html', {
+    context = {
         'hero': hero,
         'latest_four': latest_four,
         'trending_list': trending_list,
-        'news_list': all_news,       # optional for other sections
-    })
-
+        'news_list': news_qs,  # fallback for older template parts
+    }
+    return render(request, 'news/home.html', context)
 def category_news(request, category_id):
     category = get_object_or_404(Category, id=category_id)
     news_list = News.objects.filter(category=category).order_by('-created_at')

@@ -13,12 +13,12 @@ project_root = os.path.dirname(os.path.abspath(__file__))
 
 # Map exact article title -> local image file (update filenames if yours differ)
 mapping = {
-    "Breakthrough Cancer Therapy Shows Promising Results": os.path.join(project_root, 'static', 'images', 'thumb1.jpg'),
+    "Breakthrough Cancer Therapy Shows Promising Results": os.path.join(project_root, 'static', 'images', 'hero.jpg'),
     "Elections 2025: Key Takeaways from Last Night": os.path.join(project_root, 'static', 'images', 'thumb2.jpg'),
     "New Phone Launch: What's Different This Year": os.path.join(project_root, 'static', 'images', 'thumb3.jpg'),
     "City Wins Comeback Thriller in Final Seconds": os.path.join(project_root, 'static', 'images', 'thumb4.jpg'),
     # optional hero image:
-    "Film Festival Highlights: The Year's Best Indies": os.path.join(project_root, 'static', 'images', 'hero.jpg'),
+    "Film Festival Highlights: The Year's Best Indies": os.path.join(project_root, 'static', 'images', ),
 }
 
 attached = 0

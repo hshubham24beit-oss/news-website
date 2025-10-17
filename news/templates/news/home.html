@@ -4,27 +4,23 @@
 
 {% block content %}
 <div class="grid-left">
-  <!-- HERO -->
-  <section class="hero">
+  <!-- HERO SECTION -->
+<section class="hero">
   {% if hero %}
-    <a href="{% url 'news-detail' hero.id %}" class="hero-link">
+    <a href="{% url 'news-detail' hero.id %}" class="hero-link" style="text-decoration:none; color:inherit;">
       {% if hero.image %}
         <img src="{{ hero.image.url }}" alt="{{ hero.title }}" class="hero-img">
       {% else %}
         <img src="{% static 'images/hero.jpg' %}" alt="{{ hero.title }}" class="hero-img">
       {% endif %}
-      <div class="hero-text">
-        <h1 class="hero-title">{{ hero.title }}</h1>
-        <div class="muted">{{ hero.created_at|date:"F j, Y" }} • {{ hero.category.name }}</div>
-      </div>
+      <h1 class="hero-title">{{ hero.title }}</h1>
     </a>
-    <hr class="hero-divider">
   {% else %}
     <img src="{% static 'images/hero.jpg' %}" alt="Hero" class="hero-img">
-    <h1 class="hero-title">Welcome to Pillai's News</h1>
-    <hr class="hero-divider">
+    <h1 class="hero-title">No hero article available</h1>
   {% endif %}
 </section>
+
 
 
   <!-- LATEST 4 CARDS -->
