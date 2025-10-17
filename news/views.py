@@ -10,10 +10,10 @@ def home(request):
     hero = news_qs.first()
 
     # Get next 4 latest excluding hero
-    latest_four = news_qs.exclude(id=hero.id)[:4] if hero else []
+    latest_four = news_qs.exclude(id=hero.id)[:4] if hero else news_qs[:5]
 
     # Trending can just reuse the same 4 for now
-    trending_list = news_qs.exclude(id=hero.id)[:4] if hero else []
+    trending_list = news_qs[:5]
 
     context = {
         'hero': hero,
