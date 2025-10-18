@@ -43,12 +43,10 @@ main.container.main-grid {
 }
 .world-hero h2 {
   margin: 24px 0 40px;
-  font-size: 50px;
+  font-size: 40px;
   font-weight: 800;
   font-family: serif;
   color: black;
-  margin-bottom: 60px;
-  margin-top: 15px;
 }
 
 /* 🌎 Country grid layout */
@@ -66,6 +64,9 @@ main.container.main-grid {
   overflow: hidden;
   box-shadow: 0 8px 24px rgba(0,0,0,0.06);
   transition: transform .18s ease, box-shadow .18s ease;
+  text-decoration: none; /* remove underline */
+  color: inherit;
+  display: block;
 }
 .country-card:hover {
   transform: translateY(-6px);
@@ -134,7 +135,7 @@ main.container.main-grid {
     <!-- 🌍 Country Cards -->
     <div class="country-grid">
 
-      <article class="country-card">
+      <a href="{% url 'news:category_news' 1 %}" class="country-card">
         <div class="img-wrap">
           <img src="{% static 'images/countries/usa.jpg' %}" alt="USA">
           <div class="country-badge">USA</div>
@@ -143,9 +144,9 @@ main.container.main-grid {
           <div class="headline">Economic Growth Reaches New High</div>
           <div class="meta">Oct 17, 2025</div>
         </div>
-      </article>
+      </a>
 
-      <article class="country-card">
+      <a href="{% url 'news:category_news' 2 %}" class="country-card">
         <div class="img-wrap">
           <img src="{% static 'images/countries/germany.jpg' %}" alt="Germany">
           <div class="country-badge">Germany</div>
@@ -154,9 +155,9 @@ main.container.main-grid {
           <div class="headline">Chancellor Announces New Reforms</div>
           <div class="meta">Oct 17, 2025</div>
         </div>
-      </article>
+      </a>
 
-      <article class="country-card">
+      <a href="{% url 'news:category_news' 3 %}" class="country-card">
         <div class="img-wrap">
           <img src="{% static 'images/countries/india.jpg' %}" alt="India">
           <div class="country-badge">India</div>
@@ -165,9 +166,9 @@ main.container.main-grid {
           <div class="headline">Tech Exports Hit Record Levels</div>
           <div class="meta">Oct 17, 2025</div>
         </div>
-      </article>
+      </a>
 
-      <article class="country-card">
+      <a href="{% url 'news:category_news' 4 %}" class="country-card">
         <div class="img-wrap">
           <img src="{% static 'images/countries/england.jpg' %}" alt="England">
           <div class="country-badge">England</div>
@@ -176,9 +177,9 @@ main.container.main-grid {
           <div class="headline">Premiership Drama: Upsets and Comebacks</div>
           <div class="meta">Oct 17, 2025</div>
         </div>
-      </article>
+      </a>
 
-      <article class="country-card">
+      <a href="{% url 'news:category_news' 5 %}" class="country-card">
         <div class="img-wrap">
           <img src="{% static 'images/countries/france.jpg' %}" alt="France">
           <div class="country-badge">France</div>
@@ -187,9 +188,9 @@ main.container.main-grid {
           <div class="headline">Paris Summit Yields New Agreement</div>
           <div class="meta">Oct 17, 2025</div>
         </div>
-      </article>
+      </a>
 
-      <article class="country-card">
+      <a href="{% url 'news:category_news' 6 %}" class="country-card">
         <div class="img-wrap">
           <img src="{% static 'images/countries/japan.jpg' %}" alt="Japan">
           <div class="country-badge">Japan</div>
@@ -198,7 +199,7 @@ main.container.main-grid {
           <div class="headline">Innovation Push Drives New Startups</div>
           <div class="meta">Oct 17, 2025</div>
         </div>
-      </article>
+      </a>
 
     </div>
   </div>

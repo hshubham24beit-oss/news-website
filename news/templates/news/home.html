@@ -5,23 +5,21 @@
 {% block content %}
 <div class="grid-left">
   <!-- HERO SECTION -->
-<section class="hero">
-  {% if hero %}
-    <a href="{% url 'news-detail' hero.id %}" class="hero-link" style="text-decoration:none; color:inherit;">
-      {% if hero.image %}
-        <img src="{{ hero.image.url }}" alt="{{ hero.title }}" class="hero-img">
-      {% else %}
-        <img src="{% static 'images/hero.jpg' %}" alt="{{ hero.title }}" class="hero-img">
-      {% endif %}
-      <h1 class="hero-title">{{ hero.title }}</h1>
-    </a>
-  {% else %}
-    <img src="{% static 'images/hero.jpg' %}" alt="Hero" class="hero-img">
-    <h1 class="hero-title">No hero article available</h1>
-  {% endif %}
-</section>
-
-
+  <section class="hero">
+    {% if hero %}
+      <a href="{% url 'news:news_detail' hero.id %}" class="hero-link" style="text-decoration:none; color:inherit;">
+        {% if hero.image %}
+          <img src="{{ hero.image.url }}" alt="{{ hero.title }}" class="hero-img">
+        {% else %}
+          <img src="{% static 'images/hero.jpg' %}" alt="{{ hero.title }}" class="hero-img">
+        {% endif %}
+        <h1 class="hero-title">{{ hero.title }}</h1>
+      </a>
+    {% else %}
+      <img src="{% static 'images/hero.jpg' %}" alt="Hero" class="hero-img">
+      <h1 class="hero-title">No hero article available</h1>
+    {% endif %}
+  </section>
 
   <!-- LATEST 4 CARDS -->
   <section class="latest-section">
@@ -29,11 +27,11 @@
     <div class="cards-grid">
       {% for article in latest_four %}
         <article class="card">
-          <a href="{% url 'news-detail' article.id %}">
+          <a href="{% url 'news:news_detail' article.id %}">
             {% if article.image %}
               <div class="card-thumb" style="background-image: url('{{ article.image.url }}');"></div>
             {% else %}
-              <div class="card-thumb" style="background-image: url('{% static "images/thumb-fallback.jpg" %}');"></div>
+              <div class="card-thumb" style="background-image: url('{% static 'images/thumb-fallback.jpg' %}');"></div>
             {% endif %}
             <div class="card-meta">
               <span class="badge">{{ article.category.name }}</span>
@@ -57,12 +55,12 @@
           {% if article.image %}
             <div class="list-thumb" style="background-image:url('{{ article.image.url }}')"></div>
           {% else %}
-            <div class="list-thumb" style="background-image:url('{% static "images/thumb-fallback.jpg" %}')"></div>
+            <div class="list-thumb" style="background-image:url('{% static 'images/thumb-fallback.jpg' %}')"></div>
           {% endif %}
           <div class="list-body">
-            <h4><a href="{% url 'news-detail' article.id %}">{{ article.title }}</a></h4>
+            <h4><a href="{% url 'news:news_detail' article.id %}">{{ article.title }}</a></h4>
             <p class="muted">{{ article.created_at|date:"M d, Y" }} • {{ article.category.name }}</p>
-            <p class="muted">{{ article.text|truncatewords:20 }}</p>
+            <p class="muted">{{ article.content|truncatewords:20 }}</p>
           </div>
         </div>
       {% endfor %}
@@ -72,14 +70,14 @@
 
 <!-- Right Sidebar -->
 <aside class="sidebar">
-  
+
   <!-- TRENDING SECTION -->
   <section class="sidebar-card trending">
     <h2>🔥 Trending</h2>
     <ul class="trending-list">
       {% for article in trending_list|slice:":5" %}
         <li>
-          <a href="{% url 'news-detail' article.id %}">{{ article.title }}</a>
+          <a href="{% url 'news:news_detail' article.id %}">{{ article.title }}</a>
         </li>
       {% empty %}
         <li>No trending news available.</li>

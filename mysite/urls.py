@@ -1,3 +1,4 @@
+# mysite/urls.py
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -5,13 +6,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('news.urls')),   # ← this must be present
+    # include news.urls with app namespace 'news'
+    path('', include(('news.urls', 'news'), namespace='news')),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-from django.conf import settings
-from django.conf.urls.static import static
-
+# serve media in DEBUG
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
