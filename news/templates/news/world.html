@@ -1,0 +1,207 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block title %}World - Pillai's News{% endblock %}
+
+{% block content %}
+
+<style>
+/* 💥 Fix parent container alignment */
+main.container.main-grid {
+  max-width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin: 0 auto !important;
+  display: block !important;
+}
+
+/* 🌍 Page wrapper — centers everything */
+.world-page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 📦 Inner content area */
+.world-inner {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 12px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* 🌅 Banner section */
+.world-hero img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.world-hero h2 {
+  margin: 24px 0 40px;
+  font-size: 50px;
+  font-weight: 800;
+  font-family: serif;
+  color: black;
+  margin-bottom: 60px;
+  margin-top: 15px;
+}
+
+/* 🌎 Country grid layout */
+.country-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 60px;
+}
+
+/* 📰 Country cards */
+.country-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.country-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.10);
+}
+
+/* Image wrap */
+.country-card .img-wrap {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+}
+.country-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Badge (country name) */
+.country-badge {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  background: #d32f2f;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+/* Card body */
+.country-card .card-body {
+  padding: 16px;
+  text-align: left;
+}
+.country-card .headline {
+  font-weight: 800;
+  font-size: 1.1rem;
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+.country-card .meta {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+@media (min-width: 1200px) {
+  .world-inner { max-width: 1200px; }
+  .country-card .img-wrap { height: 200px; }
+}
+</style>
+
+<!-- 🌐 Page structure -->
+<div class="world-page">
+  <div class="world-inner">
+
+    <!-- 🌏 Banner -->
+    <div class="world-hero">
+      <img src="{% static 'images/world-banner.jpg' %}" alt="World Banner">
+      <h2>Top News from All over the World</h2>
+    </div>
+
+    <!-- 🌍 Country Cards -->
+    <div class="country-grid">
+
+      <article class="country-card">
+        <div class="img-wrap">
+          <img src="{% static 'images/countries/usa.jpg' %}" alt="USA">
+          <div class="country-badge">USA</div>
+        </div>
+        <div class="card-body">
+          <div class="headline">Economic Growth Reaches New High</div>
+          <div class="meta">Oct 17, 2025</div>
+        </div>
+      </article>
+
+      <article class="country-card">
+        <div class="img-wrap">
+          <img src="{% static 'images/countries/germany.jpg' %}" alt="Germany">
+          <div class="country-badge">Germany</div>
+        </div>
+        <div class="card-body">
+          <div class="headline">Chancellor Announces New Reforms</div>
+          <div class="meta">Oct 17, 2025</div>
+        </div>
+      </article>
+
+      <article class="country-card">
+        <div class="img-wrap">
+          <img src="{% static 'images/countries/india.jpg' %}" alt="India">
+          <div class="country-badge">India</div>
+        </div>
+        <div class="card-body">
+          <div class="headline">Tech Exports Hit Record Levels</div>
+          <div class="meta">Oct 17, 2025</div>
+        </div>
+      </article>
+
+      <article class="country-card">
+        <div class="img-wrap">
+          <img src="{% static 'images/countries/england.jpg' %}" alt="England">
+          <div class="country-badge">England</div>
+        </div>
+        <div class="card-body">
+          <div class="headline">Premiership Drama: Upsets and Comebacks</div>
+          <div class="meta">Oct 17, 2025</div>
+        </div>
+      </article>
+
+      <article class="country-card">
+        <div class="img-wrap">
+          <img src="{% static 'images/countries/france.jpg' %}" alt="France">
+          <div class="country-badge">France</div>
+        </div>
+        <div class="card-body">
+          <div class="headline">Paris Summit Yields New Agreement</div>
+          <div class="meta">Oct 17, 2025</div>
+        </div>
+      </article>
+
+      <article class="country-card">
+        <div class="img-wrap">
+          <img src="{% static 'images/countries/japan.jpg' %}" alt="Japan">
+          <div class="country-badge">Japan</div>
+        </div>
+        <div class="card-body">
+          <div class="headline">Innovation Push Drives New Startups</div>
+          <div class="meta">Oct 17, 2025</div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

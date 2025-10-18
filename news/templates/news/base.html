@@ -22,7 +22,10 @@
   <nav class="navbar" role="navigation">
     <div class="container nav-inner">
       <a href="{% url 'home' %}" class="nav-link">Home</a>
-      <a href="{% url 'category-news' 1 %}" class="nav-link">World</a>
+      <li class="nav-item">
+  <a class="nav-link {% if request.resolver_match.url_name == 'world' %}active{% endif %}" href="{% url 'world' %}">World</a>
+</li>
+
       <a href="{% url 'category-news' 2 %}" class="nav-link">Politics</a>
       <a href="{% url 'category-news' 3 %}" class="nav-link">Tech</a>
       <a href="{% url 'category-news' 4 %}" class="nav-link">Sports</a>
