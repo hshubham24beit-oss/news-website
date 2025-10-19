@@ -1,8 +1,6 @@
 {% extends "news/base.html" %}
 {% load static %}
 
-{# countries-category.html - safe version #}
-
 {% block title %}
   {% if hero_title %}
     {{ hero_title }} — Pillai's News
@@ -15,21 +13,68 @@
 
 {% block content %}
 <style>
-.country-hero { position:relative; text-align:center; margin-top:40px; }
-.country-hero img { width:100%; max-height:420px; object-fit:cover; border-radius:8px; display:block; }
-.country-hero .hero-overlay { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); padding:12px; }
-.country-hero .hero-title { color:white; font-size:36px; font-weight:700; text-shadow:2px 2px 8px rgba(0,0,0,0.6); margin:0; }
-.container.category-body { max-width:1000px; margin:36px auto; padding:0 12px; text-align:center; }
-.article-list { margin-top:28px; text-align:left; }
-.article-card { padding:14px 12px; border-radius:8px; background:#fff; box-shadow:0 6px 18px rgba(0,0,0,0.03); margin-bottom:12px; }
-.article-card h3 { margin:0 0 6px; font-size:18px; }
-.article-meta { color:#666; font-size:0.9rem; margin-bottom:8px; }
+.country-hero {
+  position: relative;
+  text-align: center;
+  margin-top: 30px;
+}
+.country-hero img {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+.country-hero .hero-title {
+  color: black;
+  font-size: 36px;
+  font-weight: 700;
+  margin: 15px 0;
+  text-align: center;
+}
+.container.category-body {
+  max-width: 1000px;
+  margin: 36px auto;
+  padding: 0 12px;
+  text-align: center;
+}
+.large-content {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+  text-align: justify;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #333;
+}
+.article-list {
+  margin-top: 28px;
+  text-align: left;
+}
+.article-card {
+  padding: 14px 12px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.03);
+  margin-bottom: 12px;
+}
+.article-card h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+.article-meta {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
 @media (min-width:900px) {
-  .country-hero .hero-title { font-size:44px; }
+  .country-hero .hero-title {
+    font-size: 44px;
+  }
 }
 </style>
 
-{# HERO: prefer explicit hero_image/hero_title, then hero_article, then fallback #}
+<!-- ✅ HERO SECTION -->
 <section class="country-hero" aria-label="Hero">
   {% if hero_image %}
     <img src="{{ hero_image }}" alt="{% if hero_title %}{{ hero_title }}{% elif hero_article %}{{ hero_article.title }}{% else %}{{ category.name }}{% endif %}">
@@ -39,21 +84,83 @@
     <img src="{% static 'images/world-banner.jpg' %}" alt="{{ category.name }}">
   {% endif %}
 
-  {% if hero_title %}
-    <div class="hero-overlay">
-      <h1 class="hero-title">{{ hero_title }}</h1>
-    </div>
-  {% elif hero_article %}
-    <div class="hero-overlay">
-      <h1 class="hero-title">{{ hero_article.title }}</h1>
-    </div>
-  {% else %}
-    <div class="hero-overlay">
-      <h1 class="hero-title">{{ category.name }}</h1>
-    </div>
-  {% endif %}
+  <h1 class="hero-title">
+    {% if hero_title %}
+      {{ hero_title }}
+    {% elif hero_article %}
+      {{ hero_article.title }}
+    {% else %}
+      {{ category.name }}
+    {% endif %}
+  </h1>
 </section>
 
+<!-- ✅ LARGE COUNTRY CONTENT SECTION (now BELOW the hero) -->
+<div class="large-content">
+  {% if category.id == 1 %}
+    <p>
+      The United States is witnessing a significant economic upturn as indicators point toward a sustained phase of growth.
+      A combination of strong consumer spending, technological innovation, and robust job creation has driven GDP to its highest
+      levels in years. Economists attribute this expansion to resilient business confidence and strategic investments in
+      manufacturing and green energy. Recent data from the Federal Reserve indicates a stable inflation rate and steady wage
+      growth, further bolstering market optimism. While challenges such as global trade tensions and energy policy shifts remain,
+      the overall economic outlook for the U.S. continues to inspire both domestic and international investors.
+    </p>
 
+  {% elif category.id == 2 %}
+    <p>
+      Germany’s Chancellor has unveiled a sweeping package of economic and social reforms aimed at revitalizing Europe’s largest
+      economy. The measures emphasize digital transformation, renewable energy adoption, and workforce modernization. Key
+      industries—such as automotive manufacturing and industrial machinery—are set to benefit from tax incentives and government
+      grants. Additionally, the reforms include labor flexibility initiatives to empower younger generations entering the job
+      market. Analysts see this as a strategic move to secure Germany’s competitiveness amid the global shift toward automation
+      and sustainable production practices.
+    </p>
 
+  {% elif category.id == 3 %}
+    <p>
+      India’s technology sector continues to break global records, as exports in IT services, electronics, and digital
+      infrastructure reach new heights. The government’s ‘Digital India’ initiative, coupled with private sector innovation,
+      has transformed the country into one of the fastest-growing tech ecosystems in the world. Startups in fintech,
+      e-commerce, and artificial intelligence are attracting significant foreign investment. Experts predict that by 2030,
+      India’s digital economy could contribute nearly a quarter of its total GDP, further cementing its status as a global
+      technology powerhouse.
+    </p>
+
+  {% elif category.id == 4 %}
+    <p>
+      England’s Premiership League has delivered one of its most unpredictable and thrilling seasons yet. From unexpected
+      upsets to dramatic comebacks, fans have been treated to top-tier football drama every week. Beyond the sport, the
+      economic impact has been profound — tourism, broadcasting rights, and local businesses have all seen a sharp rise
+      in revenue. Cultural analysts suggest that the league’s international appeal continues to strengthen England’s image
+      as the global home of football. Clubs are now investing heavily in youth development and sustainability to build a
+      stronger, greener future for the sport.
+    </p>
+
+  {% elif category.id == 5 %}
+    <p>
+      The recent Paris Summit brought together leaders from over 80 nations, culminating in a landmark agreement on climate
+      cooperation and economic recovery. France took center stage as a mediator and visionary, pushing for stronger global
+      commitments to clean energy and equitable trade. The new pact emphasizes green technology investment and resource
+      sharing between developed and developing nations. Observers hailed the summit as a major diplomatic success for
+      President Macron, reaffirming France’s leading role in shaping the European and global political landscape.
+    </p>
+
+  {% elif category.id == 6 %}
+    <p>
+      Japan is entering a new era of innovation, driven by ambitious government initiatives and a surge in tech startups.
+      The country is making massive strides in robotics, AI-driven healthcare, and clean energy technologies. Tokyo’s
+      Innovation Hub has attracted record foreign investments, fueling cross-sector collaboration between established
+      corporations and young entrepreneurs. As Japan navigates demographic challenges, these new ventures represent a
+      rejuvenation of its industrial spirit and a clear path toward long-term economic sustainability and global leadership
+      in innovation.
+    </p>
+
+  {% else %}
+    <p>
+      This section highlights the latest developments and top stories from around the world. Stay tuned for country-specific
+      updates as our newsroom continues to bring you in-depth insights and breaking news from every corner of the globe.
+    </p>
+  {% endif %}
+</div>
 {% endblock %}
