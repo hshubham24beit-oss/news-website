@@ -1,0 +1,205 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block title %}Politics — Pillai's News{% endblock %}
+
+{% block content %}
+<style>
+main.container.main-grid {
+  max-width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin: 0 auto !important;
+  display: block !important;
+}
+.politics-page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.politics-inner {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 12px;
+  box-sizing: border-box;
+  text-align: center;
+}
+.politics-hero img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.politics-hero h2 {
+  margin: 24px 0 40px ;
+  font-size: 40px;
+  font-weight: 800;
+  font-family: serif;
+  color: red;
+}
+.politics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 60px;
+  margin-top: 80px;
+}
+.politics-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  transition: transform .18s ease, box-shadow .18s ease;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.politics-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.10);
+}
+.politics-card .img-wrap {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+}
+.politics-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.politics-badge {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  background: #d32f2f;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+.politics-card .card-body {
+  padding: 16px;
+  text-align: left;
+}
+.politics-card .headline {
+  font-weight: 800;
+  font-size: 1.1rem;
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+.politics-card .meta {
+  color: #666;
+  font-size: 0.9rem;
+}
+@media (min-width: 1200px) {
+  .politics-inner { max-width: 1200px; }
+  .politics-card .img-wrap { height: 200px; }
+}
+</style>
+
+<div class="politics-page">
+  <div class="politics-inner">
+
+    <!-- 📰 Banner -->
+    <div class="politics-hero" style="position: relative; display: block;">
+      <img src="{% static 'images/politics-banner.jpg' %}" 
+           alt="Politics Banner" 
+           style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px;">
+      <h2>Top from the world of the politics</h2>
+    </div>
+
+    <!-- 🏛️ Politics Cards -->
+    <div class="politics-grid">
+
+      {% static 'images/politics/government.jpg' as gov_img %}
+      <a href="{% url 'news:countries_category' 1 %}" class="politics-card">
+        <div class="img-wrap">
+          <img src="{{ gov_img }}" alt="Government & Policy">
+          <div class="politics-badge">Government & Policy</div>
+        </div>
+        <div class="card-body">
+          <div class="headline">New Regulations Announced for Key Sectors</div>
+          <div class="meta">Oct 19, 2025</div>
+        </div>
+      </a>
+
+      {% static 'images/politics/elections.jpg' as elections_img %}
+      <a href="{% url 'news:countries_category' 2 %}" class="politics-card">
+        <div class="img-wrap">
+          <img src="{{ elections_img }}" alt="Elections & Voting">
+          <div class="politics-badge">Elections & Voting</div>
+        </div>
+        <div class="card-body">
+          <div class="headline">Election Day: What You Need to Know</div>
+          <div class="meta">Oct 19, 2025</div>
+        </div>
+      </a>
+
+      {% static 'images/politics/parties.jpg' as parties_img %}
+      <a href="{% url 'news:countries_category' 3 %}" class="politics-card">
+        <div class="img-wrap">
+          <img src="{{ parties_img }}" alt="Political Parties & Leaders">
+          <div class="politics-badge">Political Parties & Leaders</div>
+        </div>
+        <div class="card-body">
+          <div class="headline">Party Politics: Alliances, Conflicts, and Controversies</div>
+          <div class="meta">Oct 19, 2025</div>
+        </div>
+      </a>
+
+      {% static 'images/politics/international.jpg' as intl_img %}
+      <a href="{% url 'news:countries_category' 4 %}" class="politics-card">
+        <div class="img-wrap">
+          <img src="{{ intl_img }}" alt="International Relations">
+          <div class="politics-badge">International Relations</div>
+        </div>
+        <div class="card-body">
+          <div class="headline">Foreign Policy Moves Impact Regional Stability</div>
+          <div class="meta">Oct 19, 2025</div>
+        </div>
+      </a>
+
+      {% static 'images/politics/corruption.jpg' as corruption_img %}
+      <a href="{% url 'news:countries_category' 5 %}" class="politics-card">
+        <div class="img-wrap">
+          <img src="{{ corruption_img }}" alt="Corruption & Accountability">
+          <div class="politics-badge">Corruption & Accountability</div>
+        </div>
+        <div class="card-body">
+          <div class="headline">Corruption Allegations Spark Political Debate</div>
+          <div class="meta">Oct 19, 2025</div>
+        </div>
+      </a>
+
+      {% static 'images/politics/movements.jpg' as movements_img %}
+      <a href="{% url 'news:countries_category' 6 %}" class="politics-card">
+        <div class="img-wrap">
+          <img src="{{ movements_img }}" alt="Social & Political Movements">
+          <div class="politics-badge">Social & Political Movements</div>
+        </div>
+        <div class="card-body">
+          <div class="headline">From Streets to Parliament: The Power of Public Action</div>
+          <div class="meta">Oct 19, 2025</div>
+        </div>
+      </a>
+
+    </div>
+
+    <hr style="margin:26px 0; border:none; border-top:1px solid rgba(0,0,0,0.1);">
+    
+    <a href="{% url 'news:home' %}" 
+       class="back-link" 
+       style="display:inline-block; color:var(--brand); font-weight:700; text-decoration:none; margin-top: 30px;">
+      ← Back to Home
+    </a>
+
+  </div>
+</div>
+{% endblock %}

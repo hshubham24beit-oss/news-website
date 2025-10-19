@@ -134,3 +134,6 @@ def country_category(request, category_id):
 def news_detail(request, news_id):
     news = get_object_or_404(News, id=news_id)
     return render(request, 'news/detail.html', {'news': news})
+
+def politics(request):
+    return render(request, 'news/politics.html')
