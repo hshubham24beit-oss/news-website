@@ -11,4 +11,5 @@ urlpatterns = [
     path('category/<int:category_id>/', views.category_news, name='category_news'),
     # news detail
     path('news/<int:news_id>/', views.news_detail, name='news_detail'),
+ path('world/category/<int:category_id>/', views.category_news, name='countries_category'),
 ]
