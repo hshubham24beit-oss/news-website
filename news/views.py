@@ -3,11 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.core.exceptions import FieldError
 from .models import News, Category
 
-
 def home(request):
-    """
-    Site home: shows global hero, latest four and trending.
-    """
     news_qs = News.objects.order_by('-created_at')
     hero = news_qs.first() if news_qs.exists() else None
     latest_four = news_qs.exclude(id=hero.id)[:4] if hero else news_qs[:4]
@@ -24,17 +20,12 @@ def home(request):
 
 
 def world(request):
-    """
-    World category page: try slug 'world' then fallback to name 'World'.
-    """
-    # Robust lookup: try slug then name
     try:
         try:
             category = Category.objects.get(slug__iexact='world')
         except (Category.DoesNotExist, FieldError):
             category = Category.objects.get(name__iexact='World')
     except Category.DoesNotExist:
-        # If still not found, 404
         category = get_object_or_404(Category, name__iexact='World')
 
     news_qs = News.objects.filter(category=category).order_by('-created_at')
@@ -54,31 +45,92 @@ def world(request):
 
 def category_news(request, category_id):
     """
-    Generic category page by id.
-    Behavior:
-      - Display header/nav/footer
-      - Show the most recent News in that category as a hero (image + title + content)
-      - Optionally show other articles in that category below (passed in context)
+    Generic category page by id used for home/category links.
+    Uses distinct context keys: category, category_hero, category_articles
+    Renders templates/news/countries-category.html (you already have this file).
     """
+    print("DEBUG: category_news called for id=", category_id, "path=", request.path)
+
     category = get_object_or_404(Category, id=category_id)
     news_qs = News.objects.filter(category=category).order_by('-created_at')
 
-    # Choose latest article in that category to show prominently
-    hero_article = news_qs.first() if news_qs.exists() else None
-    other_articles = news_qs[1:10] if news_qs.exists() else []
+    category_hero = news_qs.first() if news_qs.exists() else None
+    category_articles = news_qs[1:20] if news_qs.exists() else []
 
     context = {
         'category': category,
-        'hero_article': hero_article,
-        'other_articles': other_articles,
+        'category_hero': category_hero,
+        'category_articles': category_articles,
     }
-    # Render a dedicated category template
+    # render the template you already have
+    return render(request, 'news/detail.html', context)
+
+# news/views.py
+
+from django.shortcuts import render, get_object_or_404
+
+def _attach_teaser_to_queryset(qs):
+    """
+    Ensure every News instance in qs has a safe .teaser attribute we can render
+    in templates without risking VariableDoesNotExist.
+    """
+    for obj in qs:
+        # prefer excerpt, then summary, then empty string
+        teaser = ''
+        # use getattr with defaults to avoid attribute errors
+        teaser = getattr(obj, 'excerpt', None) or getattr(obj, 'summary', None) or ''
+        # set attribute on the instance (harmless and handy in template)
+        setattr(obj, 'teaser', teaser)
+    return qs
+
+
+def country_category(request, category_id):
+    """
+    Country/category view.
+    Priority:
+      1. Use hero_title & hero_image passed via GET (from World page).
+      2. Otherwise, fall back to latest article in that category.
+    Also attach .teaser to all article objects.
+    """
+    print("DEBUG country_category:", request.path, request.GET.dict())
+
+    category = get_object_or_404(Category, id=category_id)
+    news_qs = News.objects.filter(category=category).order_by('-created_at')
+
+    # GET params from world page (preferred)
+    hero_title = request.GET.get('hero_title')
+    hero_image = request.GET.get('hero_image')
+
+    hero_article = None
+    if not hero_title or not hero_image:
+        hero_article = news_qs.first() if news_qs.exists() else None
+        if hero_article:
+            hero_title = hero_article.title
+            try:
+                hero_image = hero_article.image.url
+            except Exception:
+                hero_image = None
+
+    # Prepare other_articles queryset/list and attach teaser safely
+    if hero_article:
+        other_qs = news_qs.exclude(id=hero_article.id)[:20]
+    else:
+        other_qs = news_qs[:20]
+
+    other_qs = list(other_qs)  # evaluate
+    _attach_teaser_to_queryset(other_qs)
+
+    context = {
+        'category': category,
+        'hero_title': hero_title,
+        'hero_image': hero_image,
+        'hero_article': hero_article,
+        'other_articles': other_qs,
+    }
     return render(request, 'news/countries-category.html', context)
 
 
+
 def news_detail(request, news_id):
-    """
-    News detail page (single article).
-    """
     news = get_object_or_404(News, id=news_id)
     return render(request, 'news/detail.html', {'news': news})

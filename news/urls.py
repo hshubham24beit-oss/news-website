@@ -7,9 +7,11 @@ app_name = 'news'
 urlpatterns = [
     path('', views.home, name='home'),
     path('world/', views.world, name='world'),
-    # category pages for country cards (id-based)
+
+    # country/category route: optional news_id for hero coming from world page
+    path('world/category/<int:category_id>/', views.country_category, name='countries_category'),
+    path('world/category/<int:category_id>/news/<int:news_id>/', views.country_category, name='countries_category_with_news'),
+
     path('category/<int:category_id>/', views.category_news, name='category_news'),
-    # news detail
     path('news/<int:news_id>/', views.news_detail, name='news_detail'),
- path('world/category/<int:category_id>/', views.category_news, name='countries_category'),
 ]
