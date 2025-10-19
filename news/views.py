@@ -162,12 +162,10 @@ def tech(request):
 
 def tech_category(request, category_id):
     category = get_object_or_404(Category, id=category_id)
-    articles = Article.objects.filter(category=category).order_by('-published_date')
     hero_title = request.GET.get('hero_title', category.name)
-    hero_image = request.GET.get('hero_image', '')  # fallback if needed
-    return render(request, 'news/category.html', {
+    hero_image = request.GET.get('hero_image', '')
+    return render(request, 'news/tech_category.html', {
         'category': category,
-        'articles': articles,
         'hero_title': hero_title,
         'hero_image': hero_image,
     })
