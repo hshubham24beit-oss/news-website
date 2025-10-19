@@ -16,14 +16,17 @@
 .country-hero {
   position: relative;
   text-align: center;
-  margin-top: 30px;
+  margin-top: 20px !important;        /* Remove top gap */
+  padding-top: 20px !important;    /* Small breathing space under navbar */
 }
+
 .country-hero img {
   width: 100%;
   max-height: 420px;
   object-fit: cover;
   border-radius: 8px;
   display: block;
+  
 }
 .country-hero .hero-title {
   color: black;
@@ -31,6 +34,7 @@
   font-weight: 700;
   margin: 15px 0;
   text-align: center;
+  margin-top: 40px;
 }
 .container.category-body {
   max-width: 1000px;
@@ -39,14 +43,17 @@
   text-align: center;
 }
 .large-content {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 0 20px;
+  max-width: 100%;             /* make it full width like the image */
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px 4%;            /* adds nice side spacing, adjustable */
   text-align: justify;
   font-size: 18px;
   line-height: 1.8;
   color: #333;
+  box-sizing: border-box;
 }
+
 .article-list {
   margin-top: 28px;
   text-align: left;
@@ -72,6 +79,21 @@
     font-size: 44px;
   }
 }
+
+/* Force the hero and content to stack vertically */
+.country-hero,
+.large-content {
+  display: block !important;
+  width: 100% !important;
+  margin-top: 60px;
+}
+
+main.container.main-grid {
+  display: block !important;
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
 </style>
 
 <!-- ✅ HERO SECTION -->
@@ -98,63 +120,259 @@
 <!-- ✅ LARGE COUNTRY CONTENT SECTION (now BELOW the hero) -->
 <div class="large-content">
   {% if category.id == 1 %}
-    <p>
-      The United States is witnessing a significant economic upturn as indicators point toward a sustained phase of growth.
-      A combination of strong consumer spending, technological innovation, and robust job creation has driven GDP to its highest
-      levels in years. Economists attribute this expansion to resilient business confidence and strategic investments in
-      manufacturing and green energy. Recent data from the Federal Reserve indicates a stable inflation rate and steady wage
-      growth, further bolstering market optimism. While challenges such as global trade tensions and energy policy shifts remain,
-      the overall economic outlook for the U.S. continues to inspire both domestic and international investors.
-    </p>
+    <p><strong>By [Your Name] | October 2025</strong></p>
 
-  {% elif category.id == 2 %}
-    <p>
-      Germany’s Chancellor has unveiled a sweeping package of economic and social reforms aimed at revitalizing Europe’s largest
-      economy. The measures emphasize digital transformation, renewable energy adoption, and workforce modernization. Key
-      industries—such as automotive manufacturing and industrial machinery—are set to benefit from tax incentives and government
-      grants. Additionally, the reforms include labor flexibility initiatives to empower younger generations entering the job
-      market. Analysts see this as a strategic move to secure Germany’s competitiveness amid the global shift toward automation
-      and sustainable production practices.
-    </p>
+<p>The United States economy has once again demonstrated its remarkable resilience, achieving record-breaking growth in the third quarter of 2025. With GDP rising at an annualized rate of <strong>4.7%</strong>, this marks the strongest expansion the country has seen in nearly a decade — fueled by robust consumer spending, technological innovation, and a dynamic labor market that continues to outperform expectations.</p>
+
+<p><strong>A Resurgent Economy Defying Predictions</strong></p>
+<p>Economists and financial analysts alike are revisiting their forecasts after a year of unexpected economic strength. Many had anticipated a slowdown following aggressive interest rate hikes by the Federal Reserve in 2023 and 2024, aimed at curbing inflation. Yet, contrary to fears of stagnation, the economy has roared ahead — driven by strong household demand, government investment in infrastructure and clean energy, and a rebound in manufacturing.</p>
+
+<p>According to the U.S. Bureau of Economic Analysis (BEA), the service sector — particularly technology, healthcare, and travel — accounted for over <strong>60%</strong> of the total GDP gain, while manufacturing and construction also saw notable upticks.</p>
+
+<p>“American productivity is not just rebounding; it’s reinventing itself,” says <strong>Dr. Laura Chen</strong>, senior economist at the Brookfield Institute. “We’re witnessing a digital-industrial fusion — AI, green energy, and automation working hand-in-hand to create entirely new categories of economic value.”</p>
+
+<p><strong>The Consumer Engine: Spending with Confidence</strong></p>
+<p>At the heart of this boom lies the American consumer. Household spending rose <strong>3.8%</strong>, supported by rising wages, low unemployment, and a renewed sense of financial confidence. Retail sales and online commerce reached all-time highs during the summer, while the housing market stabilized after a turbulent 2024.</p>
+
+<p>Even with interest rates still higher than pre-pandemic levels, strong job growth and increasing real incomes have enabled consumers to keep spending. Sectors such as <em>automotive</em>, <em>technology devices</em>, and <em>entertainment</em> recorded double-digit growth, reflecting both pent-up demand and lifestyle shifts driven by hybrid work and digital integration.</p>
+
+<p><strong>Tech Renaissance and Industrial Revival</strong></p>
+<p>A major driver of this growth wave has been the ongoing <strong>AI and automation revolution</strong>. Companies across the tech, logistics, and finance sectors are leveraging artificial intelligence to streamline operations, cut costs, and open new markets. Major tech firms, including those based in Silicon Valley, have seen their profits soar, with some reporting growth rates exceeding <strong>20% year-over-year</strong>.</p>
+
+<p>Simultaneously, the U.S. manufacturing landscape is experiencing a renaissance. Federal incentives under the <em>CHIPS and Science Act</em> and <em>Inflation Reduction Act</em> have spurred billions in private-sector investment in semiconductor fabrication, electric vehicles, and renewable energy projects. As a result, domestic production and exports have both risen, reducing dependence on global supply chains.</p>
+
+<p><strong>Labor Market: Strong and Steady</strong></p>
+<p>Unemployment remains at a historic low of <strong>3.4%</strong>, with participation rates ticking upward. The demand for skilled labor in engineering, data science, and construction continues to rise, prompting companies to offer higher wages and flexible work arrangements. However, experts warn that sustained wage growth could add pressure on inflation if productivity gains don’t keep pace.</p>
+
+<p>Nonetheless, the rise in employment opportunities has had broad social benefits — narrowing income inequality in several urban centers and boosting household savings.</p>
+
+<p><strong>Government Policy and Fiscal Strength</strong></p>
+<p>Much of the current momentum can be attributed to a combination of <strong>strategic fiscal stimulus</strong> and <strong>long-term investment initiatives</strong>. The Biden administration’s continued focus on infrastructure, renewable energy, and domestic manufacturing has injected fresh life into local economies nationwide.</p>
+
+<p>Federal investments in high-speed rail, clean energy grids, and AI research hubs have not only generated jobs but also positioned the U.S. as a global leader in the industries of the future.</p>
+
+<p>At the same time, the budget deficit remains a topic of debate. While federal spending has supported growth, economists caution that sustained borrowing could become a challenge if interest rates remain elevated. Still, with inflation trending down to <strong>2.3%</strong>, there is growing optimism that the country can sustain its growth trajectory without overheating.</p>
+
+<p><strong>Global Impact: America Back on Top</strong></p>
+<p>Internationally, the U.S. economic surge has reaffirmed its role as the <strong>world’s growth engine</strong>. The dollar has strengthened against major currencies, and global investors are pouring capital into U.S. equities, tech startups, and green bonds.</p>
+
+<p>Emerging markets have also felt the ripple effects — both positive and negative. While strong U.S. demand has buoyed global trade, higher interest rates have drawn investment away from developing economies. Yet, analysts agree that the renewed strength of the American economy provides stability amid global uncertainty.</p>
+
+<p><strong>Challenges Ahead</strong></p>
+<p>Despite the upbeat outlook, several headwinds remain. The <strong>national debt</strong>, rising to $36 trillion, could pressure fiscal policy in the coming years. Geopolitical tensions, particularly around technology supply chains and trade relations with China, remain potential disruptors. Moreover, climate risks and regional labor shortages may test the sustainability of current growth levels.</p>
+
+<p>Still, policymakers and investors are largely optimistic. “We’re entering a new era of American innovation,” says <strong>James Patel</strong>, chief strategist at Horizon Analytics. “If managed wisely, this growth cycle could define the next decade.”</p>
+
+<p><strong>Conclusion: The New American Momentum</strong></p>
+<p>As 2025 draws to a close, the U.S. economy stands as a testament to adaptability and reinvention. From Main Street entrepreneurs to high-tech innovators, the nation’s economic pulse has never been stronger. What began as a cautious recovery has now evolved into a full-fledged expansion — signaling that the <strong>United States has not just bounced back, but leaped forward.</strong></p>
+
+<p>In a world grappling with volatility, one thing is clear: <strong>America’s economic engine is running at full speed once again.</strong>
+</p>
+
+
+   {% elif category.id == 2 %}
+    
+<p><strong>By [Your Name] | October 2025</strong></p>
+
+<p>In a landmark announcement that could reshape the trajectory of Europe’s largest economy, German Chancellor <strong>Olaf Scholz</strong> unveiled a comprehensive package of reforms aimed at revitalizing growth, boosting innovation, and strengthening the nation’s social and environmental foundations. The new set of policies, collectively known as the <em>“Future Framework 2030”</em>, represents one of the most ambitious reform agendas Germany has seen in decades.</p>
+
+<p>The announcement, delivered during a special session of the Bundestag in Berlin, was met with both optimism and scrutiny. Supporters hailed the plan as a forward-looking blueprint that positions Germany as a global leader in technology, sustainability, and economic inclusivity. Critics, however, questioned whether the reforms can be implemented without straining the national budget and widening regional disparities.</p>
+
+<p><strong>A Vision for a Modern Germany</strong></p>
+<p>At the core of the reforms lies a bold vision — to transform Germany into a more dynamic, digitally advanced, and climate-neutral economy by the end of the decade. The Chancellor emphasized that the country must “move beyond incremental change” and embrace structural transformation to remain competitive in a rapidly evolving world economy.</p>
+
+<p>“Germany’s strength has always been its ability to adapt,” Scholz stated. “Now, we must modernize our systems — from energy to education — to secure prosperity for the next generation.”</p>
+
+<p>The reforms span a wide range of sectors, including taxation, labor, digital infrastructure, education, housing, and environmental policy. Analysts note that the initiative reflects both economic necessity and political strategy, as Germany faces slowing industrial output, an aging population, and rising costs of energy transition.</p>
+
+<p><strong>Economic Reforms: Stimulating Growth and Innovation</strong></p>
+<p>Among the most significant changes are the economic measures designed to stimulate investment and entrepreneurship. The government plans to reduce corporate taxes for small and medium-sized enterprises (SMEs) and introduce a new innovation credit for start-ups engaged in clean technology and artificial intelligence.</p>
+
+<p>In addition, the Finance Ministry has proposed simplifying the bureaucratic processes that often slow down business formation and infrastructure projects. “Germany can no longer afford to be a country of endless paperwork,” remarked Finance Minister Christian Lindner. “We must cut red tape and give innovators the space to thrive.”</p>
+
+<p>These initiatives aim to attract foreign investors, who have long admired Germany’s engineering prowess but often cited administrative rigidity as a major barrier to entry. The government expects that the reforms could boost GDP growth by up to <strong>1.5%</strong> annually over the next five years.</p>
+
+<p><strong>Green Transition and Energy Independence</strong></p>
+<p>Environmental policy stands at the heart of the new reform agenda. Germany, which has committed to achieving carbon neutrality by 2045, is accelerating its transition away from fossil fuels. The Chancellor announced an expansion of the <em>Green Innovation Fund</em>, with an additional <strong>€40 billion</strong> dedicated to renewable energy projects, hydrogen technology, and sustainable transportation.</p>
+
+<p>One key highlight is the plan to build a nationwide network of green hydrogen hubs and to invest heavily in wind and solar power. These efforts aim to reduce dependency on imported energy, particularly in light of the geopolitical tensions and supply disruptions seen in recent years.</p>
+
+<p>“Energy independence is not just an environmental issue; it’s a matter of national security,” Scholz declared. “Our future must be powered by clean, homegrown innovation.”</p>
+
+<p><strong>Digital Revolution and Infrastructure Modernization</strong></p>
+<p>Another cornerstone of the reforms focuses on digitization. Germany, often criticized for lagging behind other advanced economies in digital infrastructure, is now embarking on a nationwide modernization drive. The government pledged to expand high-speed internet access to every household by 2028 and digitize all federal administrative services by 2030.</p>
+
+<p>Public investment in artificial intelligence, quantum computing, and cybersecurity will also rise sharply. A new <em>Digital Innovation Agency</em> will oversee public-private partnerships aimed at nurturing emerging technologies while ensuring ethical and data-protection standards remain robust.</p>
+
+<p>“Digital transformation is not optional — it’s existential,” said Digital Affairs Minister Volker Wissing. “These reforms will ensure that every citizen, from Munich to Mecklenburg, has access to the digital tools of the future.”</p>
+
+<p><strong>Social Welfare and Education Overhaul</strong></p>
+<p>Recognizing the growing social challenges in an aging society, the government has also proposed sweeping changes to welfare and education systems. The reforms will increase funding for vocational training and lifelong learning programs, ensuring workers can adapt to shifting labor market demands.</p>
+
+<p>Additionally, the pension system will undergo modernization to maintain stability while reducing pressure on younger generations. New parental benefits, affordable housing incentives, and healthcare subsidies are designed to promote inclusivity and protect low-income households from inflationary pressures.</p>
+
+<p>Education reform is another major pillar. Schools and universities are set to receive record-level funding to promote digital literacy, research excellence, and international collaboration. The goal, Scholz said, is to “make Germany a magnet for knowledge and creativity.”</p>
+
+<p><strong>Political Response and Public Opinion</strong></p>
+<p>The reaction to the announcement has been mixed. Business groups welcomed the economic and digital measures, calling them “essential for competitiveness,” while environmental activists praised the expanded climate commitments. However, opposition parties voiced concerns about the financial feasibility of the reforms, warning that the proposed spending could lead to rising public debt.</p>
+
+<p>Public sentiment appears cautiously optimistic. A recent poll conducted by Der Spiegel showed that <strong>63%</strong> of Germans support the overall direction of the reforms, though many remain skeptical about how quickly tangible results will emerge.</p>
+
+<p><strong>European and Global Implications</strong></p>
+<p>Beyond its domestic impact, Germany’s reform agenda is expected to influence economic and policy trends across Europe. As the continent’s largest economy, Germany’s shift toward digital innovation and green energy could accelerate similar transformations in neighboring nations.</p>
+
+<p>Analysts believe the reforms will strengthen Germany’s leadership within the European Union and enhance its competitiveness against global powerhouses like the United States and China. The EU Commission has already signaled its support, calling the initiative “a model for sustainable modernization.”</p>
+
+<p><strong>Challenges on the Horizon</strong></p>
+<p>Despite the sweeping ambitions, challenges remain. Implementation will require coordination between federal and regional governments, as well as collaboration with the private sector. The ongoing shortage of skilled labor and rising construction costs could delay infrastructure projects, while balancing fiscal discipline with social spending will test the government’s resolve.</p>
+
+<p>Still, the Chancellor struck an optimistic tone. “The path ahead will not be easy, but it is necessary,” Scholz said. “If we act with courage and unity, Germany will emerge stronger, greener, and more innovative than ever before.”</p>
+
+<p><strong>A New Era for Germany</strong></p>
+<p>With the <em>Future Framework 2030</em>, Germany is signaling not only economic intent but also a cultural shift — toward adaptability, sustainability, and digital excellence. The reforms represent a promise to its citizens and to Europe that Germany is ready to lead in the defining global challenges of the 21st century.</p>
+
+<p>As the Chancellor concluded his address, his message resonated beyond politics: “Our future is not something to wait for. It is something to build — together.”
+
+</p>
+
 
   {% elif category.id == 3 %}
-    <p>
-      India’s technology sector continues to break global records, as exports in IT services, electronics, and digital
-      infrastructure reach new heights. The government’s ‘Digital India’ initiative, coupled with private sector innovation,
-      has transformed the country into one of the fastest-growing tech ecosystems in the world. Startups in fintech,
-      e-commerce, and artificial intelligence are attracting significant foreign investment. Experts predict that by 2030,
-      India’s digital economy could contribute nearly a quarter of its total GDP, further cementing its status as a global
-      technology powerhouse.
-    </p>
+    
+<p><strong>By [Your Name] | October 2025</strong></p>
+
+<p>India’s technology sector has reached an unprecedented milestone, as the country’s tech exports hit record levels in 2025, underscoring its emergence as a global powerhouse in digital innovation, software services, and advanced technology manufacturing. According to the latest data released by the Ministry of Commerce and Industry, India’s total technology exports surpassed <strong>$260 billion</strong> for the fiscal year — a historic achievement that reflects the nation’s deepening role in shaping the digital economy of the world.</p>
+
+<p>Driven by strong global demand for software, IT-enabled services, electronics, and semiconductor components, this surge marks a remarkable <strong>18% year-on-year growth</strong>, despite global economic uncertainties and shifting trade dynamics. Experts attribute the performance to a combination of factors — India’s expanding tech ecosystem, government-backed digital initiatives, and the country’s growing reputation as a hub for innovation and skilled talent.</p>
+
+<p><strong>India’s Digital Engine Roars Ahead</strong></p>
+<p>For over two decades, India has been recognized as the world’s software services hub, but in 2025, that story evolved into something bigger. The nation is no longer just coding for the world; it’s now building the next wave of technologies — from artificial intelligence and fintech to semiconductors and clean tech. Exports from India’s IT and electronics sector now account for nearly <strong>40% of total service exports</strong>, a share that continues to grow year after year.</p>
+
+<p>“What we are seeing is not just export growth, but transformation,” said <strong>Rajeev Chandrasekhar</strong>, Minister of State for Electronics and IT. “India has moved from being a back-office supplier to a global digital architect. We design, innovate, and deliver solutions that power industries across the planet.”</p>
+
+<p>The government’s <em>Digital India 2.0</em> initiative, launched in 2023, has been a major catalyst. It has attracted billions of dollars in foreign investment, fostered public-private partnerships, and accelerated the integration of advanced technologies in key sectors such as healthcare, education, finance, and manufacturing.</p>
+
+<p><strong>Software and Services: The Powerhouse of Growth</strong></p>
+<p>Software exports remain the cornerstone of India’s tech success story. Industry leaders like TCS, Infosys, Wipro, and HCL Technologies reported record revenues, driven by demand for digital transformation, cloud migration, and AI-based business solutions across the U.S. and Europe.</p>
+
+<p>According to Nasscom, India’s IT service exports alone reached <strong>$200 billion</strong> this year. Growth has been particularly strong in the fields of cybersecurity, generative AI, and blockchain applications — with Indian firms developing cutting-edge solutions adopted by Fortune 500 companies globally.</p>
+
+<p>Startups, too, are playing an increasingly important role. From SaaS innovators in Bengaluru to AI research firms in Hyderabad, India’s startup ecosystem has matured into a global force. Over <strong>15,000 tech startups</strong> are now contributing to the country’s export economy, with several reaching unicorn status thanks to robust foreign demand.</p>
+
+<p><strong>Hardware and Semiconductor Boom</strong></p>
+<p>While software continues to dominate, the rise of hardware exports has been one of the defining trends of 2025. India’s push to become a key player in global electronics manufacturing has paid off, with exports of mobile phones, semiconductor components, and computer hardware hitting all-time highs.</p>
+
+<p>The government’s <em>Production Linked Incentive (PLI)</em> scheme for electronics and semiconductors has attracted top global manufacturers like Apple, Foxconn, and Micron to expand operations in India. As a result, electronic exports crossed <strong>$35 billion</strong> this year, making India one of the fastest-growing electronics exporters in the world.</p>
+
+<p>“The semiconductor ecosystem in India is finally taking shape,” noted <strong>Dr. Anjali Mehta</strong>, an analyst at TechInsights Asia. “With new fabrication units in Gujarat and Tamil Nadu, India is well on its way to becoming a reliable global supply chain partner.”</p>
+
+<p><strong>Global Demand and Market Expansion</strong></p>
+<p>India’s tech exports are finding eager buyers across continents. The United States remains India’s largest export destination, accounting for about 55% of total IT and software exports. However, newer markets in Europe, Southeast Asia, Africa, and Latin America are also expanding rapidly.</p>
+
+<p>Digital partnerships with countries like Japan, Germany, and the UAE are driving cross-border projects in smart infrastructure, green technology, and data security. India’s growing presence in the field of artificial intelligence ethics and governance is further cementing its reputation as a responsible tech leader on the global stage.</p>
+
+<p><strong>Skilled Workforce: The Backbone of Success</strong></p>
+<p>Behind India’s tech dominance is a skilled and youthful workforce. With over <strong>5 million professionals</strong> employed in the IT and electronics export sector, India boasts one of the largest pools of engineers, developers, and digital experts in the world. Universities and technical institutions have also adapted quickly, introducing specialized programs in AI, machine learning, robotics, and semiconductor design.</p>
+
+<p>The government’s <em>Skill India Digital</em> program, launched last year, has trained more than two million young professionals in advanced technologies, preparing them for global opportunities. This talent surge has not only strengthened India’s export competitiveness but also contributed to record levels of foreign investment in the technology sector.</p>
+
+<p><strong>Government Policy and Supportive Ecosystem</strong></p>
+<p>The Indian government has played a key role in fostering an export-friendly environment. Reforms in taxation, data protection, and investment regulations have created a stable and transparent framework for both domestic and international players. The creation of <em>Technology Export Promotion Councils</em> in major states has streamlined operations and improved coordination between industry and government.</p>
+
+<p>In his recent address, Prime Minister <strong>Narendra Modi</strong> emphasized that India’s success in tech exports is part of a larger vision — to make the country a global hub for digital manufacturing and innovation. “Our engineers, entrepreneurs, and innovators are building not just for India, but for the world,” he said. “This decade will belong to Indian technology.”</p>
+
+<p><strong>Challenges on the Horizon</strong></p>
+<p>Despite the stellar performance, challenges remain. Global demand cycles, data protection concerns, and competition from emerging economies could impact growth in the medium term. The shortage of advanced semiconductor engineers and the need for stronger intellectual property protections are also pressing issues that policymakers are addressing.</p>
+
+<p>Furthermore, as India scales up its export ambitions, maintaining sustainability and ethical practices in AI and data use will be critical. The government has already initiated consultations on a <em>National AI Governance Framework</em> to ensure transparency, inclusivity, and accountability in tech exports.</p>
+
+<p><strong>The Road Ahead</strong></p>
+<p>Industry experts are optimistic that India’s tech exports will continue to soar. With deepening global partnerships, increasing domestic innovation, and a young, ambitious workforce, the country is well-positioned to become the world’s next digital superpower.</p>
+
+<p>“The numbers tell a story, but the spirit tells a bigger one,” said <strong>Rohit Bansal</strong>, CEO of InnovateX Global. “India is no longer exporting just services or products — it’s exporting ideas, intelligence, and impact.”</p>
+
+<p><strong>Conclusion: A Digital Dawn for India</strong></p>
+<p>As 2025 draws to a close, India’s record-breaking tech exports signal more than just economic success — they represent a shift in identity. From a nation once known for outsourcing, India is now shaping the global technology agenda. Its journey from service provider to innovation leader is redefining the contours of global trade, talent, and technology.</p>
+
+<p>In the words of one senior official, “The world is not just buying from India anymore — it’s building with India.”
+
+</p>
+
 
   {% elif category.id == 4 %}
-    <p>
-      England’s Premiership League has delivered one of its most unpredictable and thrilling seasons yet. From unexpected
-      upsets to dramatic comebacks, fans have been treated to top-tier football drama every week. Beyond the sport, the
-      economic impact has been profound — tourism, broadcasting rights, and local businesses have all seen a sharp rise
-      in revenue. Cultural analysts suggest that the league’s international appeal continues to strengthen England’s image
-      as the global home of football. Clubs are now investing heavily in youth development and sustainability to build a
-      stronger, greener future for the sport.
-    </p>
+
+  <p><strong>David vs. Goliath: The Rise of the Underdogs</strong></p>
+  <p>This season, the English Premiership has reminded fans why football is so unpredictable. Newly promoted sides have been shaking up the league, toppling established giants with fearless energy and tactical ingenuity. Last-minute goals, stunning counterattacks, and unexpected tactical masterstrokes have turned the table on long-time favorites.</p>
+  <blockquote>"In England, the underdog always has a chance to make history."</blockquote>
+
+  <p><strong>Shockwaves Among the Giants</strong></p>
+  <p>Even the league’s traditional powerhouses have found themselves on the back foot. Dropped points against mid-table sides, missed penalties, and defensive lapses have kept fans on edge. Yet, it is these very challenges that make comebacks so exhilarating. Clubs renowned for dominance have had to innovate and adapt, proving that resilience is as important as talent. The tension on every matchday has been palpable—an atmosphere where one mistake or one moment of brilliance can redefine the season.</p>
+
+  <p><strong>Moments of Brilliance</strong></p>
+  <p>The Premiership is a stage for individual brilliance as much as team performance. Young talents are emerging, veterans are leading by example, and goalkeepers are performing miracles between the sticks. A 90th-minute free-kick, a last-gasp equalizer, or a solo run that defies defenders can shift the momentum of the league instantly.</p>
+  <blockquote>"Every game feels like a final."</blockquote>
+
+  <p><strong>Off-Pitch Drama: Managers and Transfers</strong></p>
+  <p>Beyond the pitch, managerial shake-ups and mid-season transfers have added layers of intrigue. A single signing or a tactical adjustment can alter the fate of a club overnight. Analysts and fans dissect formations, substitutions, and off-the-ball movement, turning every discussion into a mini-debate. The Premiership thrives not only on goals but on strategy, wit, and the chess match between managers that unfolds week after week.</p>
+
+  <p><strong>The Race Intensifies</strong></p>
+  <p>As the season enters its climax, the stakes couldn’t be higher. Title races, European qualification battles, and relegation struggles run parallel, making each match a high-stakes drama. Every goal, every save, every controversial call carries immense significance. In a league where unpredictability reigns supreme, supporters are reminded that football is as much about emotion as it is about skill.</p>
+
+  <p><strong>Football as Theatre</strong></p>
+  <p>For fans, the Premiership offers more than football; it delivers pure spectacle. From raucous stadiums to living rooms around the world, the drama, tension, and triumph unfold in real-time.</p>
+  <blockquote>"In this league, anything can happen, and often does."</blockquote>
+  <p>Each match is a story, each goal a moment to remember, and every comeback a testament to the league’s enduring magic.</p>
+
+  <p><strong>Conclusion: The Premiership Never Sleeps</strong></p>
+  <p>As the season hurtles toward its finale, one thing is certain: the drama will continue. Upsets, comebacks, and unforgettable moments will keep the world watching. The English Premiership remains the ultimate theatre of football, a league where passion, unpredictability, and brilliance intersect in ways that only English football can deliver.
+
+  </p>
 
   {% elif category.id == 5 %}
-    <p>
-      The recent Paris Summit brought together leaders from over 80 nations, culminating in a landmark agreement on climate
-      cooperation and economic recovery. France took center stage as a mediator and visionary, pushing for stronger global
-      commitments to clean energy and equitable trade. The new pact emphasizes green technology investment and resource
-      sharing between developed and developing nations. Observers hailed the summit as a major diplomatic success for
-      President Macron, reaffirming France’s leading role in shaping the European and global political landscape.
-    </p>
+    <p><strong>Global Leaders Unite for Change</strong></p>
+  <p>In a historic convergence that captured worldwide attention, the Paris Summit brought together heads of state, ministers, and international experts to negotiate a new agreement addressing some of the planet’s most pressing challenges. Diplomacy, debate, and compromise dominated the discussions, reflecting the complexity of coordinating global action in an increasingly interconnected world.</p>
+  <blockquote>"The Paris Summit proves that when nations come together, meaningful progress is possible."</blockquote>
 
+  <p><strong>Sustainable Development at the Forefront</strong></p>
+  <p>One of the summit’s most celebrated outcomes is the agreement on ambitious sustainable development initiatives. Countries pledged to reduce carbon emissions, invest heavily in renewable energy, and support developing nations in their environmental transitions. Experts hailed this as a crucial step toward a more sustainable global future, emphasizing that collective commitment is essential to address climate change effectively.</p>
+
+  <p><strong>Economic Collaboration and Trade</strong></p>
+  <p>Equally impactful were the agreements on trade and economic cooperation. Nations committed to streamlining cross-border trade, fostering innovation, and creating conditions for robust economic growth. Economists suggest these measures could stimulate global markets, enhance employment opportunities, and provide stability amidst economic uncertainty. The summit showcased the importance of collaboration in navigating a rapidly evolving economic landscape.</p>
+
+  <p><strong>Security and Global Governance</strong></p>
+  <p>Security issues were high on the agenda, with delegates discussing conflict resolution, cyber threats, and international intelligence sharing. The agreements reached aim to strengthen trust and cooperation between nations, offering frameworks for responding to crises collectively. Analysts argue that such multilateral coordination is key to ensuring a more secure and stable global environment.</p>
+
+  <p><strong>Diplomacy in Action</strong></p>
+  <p>Behind the headlines, intense negotiations took place, highlighting the delicate balance between national interests and global responsibility. Late-night deliberations, strategic compromises, and bold initiatives underscored the summit’s dynamic nature. As one diplomat remarked, <blockquote>"Every agreement signed here represents not just policy, but hope for a better future."</blockquote></p>
+
+  <p><strong>Looking Ahead</strong></p>
+  <p>As the world watches, the focus now shifts to implementation. The success of the Paris Summit will ultimately depend on how these agreements are translated into action on the ground. Yet for now, the summit stands as a testament to what diplomacy can achieve when nations prioritize dialogue, collaboration, and shared responsibility. It is a reminder that in an interconnected world, collective solutions are not only possible—they are essential.
+
+  </p>
   {% elif category.id == 6 %}
-    <p>
-      Japan is entering a new era of innovation, driven by ambitious government initiatives and a surge in tech startups.
-      The country is making massive strides in robotics, AI-driven healthcare, and clean energy technologies. Tokyo’s
-      Innovation Hub has attracted record foreign investments, fueling cross-sector collaboration between established
-      corporations and young entrepreneurs. As Japan navigates demographic challenges, these new ventures represent a
-      rejuvenation of its industrial spirit and a clear path toward long-term economic sustainability and global leadership
-      in innovation.
-    </p>
+    <p><strong>A New Era of Entrepreneurship</strong></p>
+  <p>Japan is witnessing a remarkable surge in entrepreneurial activity, as an innovation-driven ecosystem empowers startups to thrive across diverse sectors. From cutting-edge technology to sustainable solutions, a wave of ambitious founders is redefining the country’s business landscape. This trend reflects a strategic push by government, industry, and academia to foster creativity, collaboration, and global competitiveness.</p>
+  <blockquote>"Japan’s startup scene is no longer just about incremental improvement—it’s about transformative innovation."</blockquote>
+
+  <p><strong>Government Support and Strategic Initiatives</strong></p>
+  <p>The Japanese government has introduced a series of initiatives designed to nurture startups, offering funding programs, tax incentives, and simplified regulatory processes. Innovation hubs and incubators have sprung up in cities such as Tokyo, Osaka, and Fukuoka, providing mentorship, networking opportunities, and access to cutting-edge research. These policies are aimed at creating an ecosystem where young enterprises can scale rapidly and compete on a global stage.</p>
+
+  <p><strong>Technology at the Core</strong></p>
+  <p>At the heart of this startup renaissance is technology. Japanese entrepreneurs are pushing boundaries in fields such as robotics, artificial intelligence, fintech, and green energy. Startups are leveraging advanced R&D and collaborating with universities and research institutes to develop solutions that are both practical and revolutionary. The convergence of technology and entrepreneurship has positioned Japan as a hotbed for innovation in Asia and beyond.</p>
+
+  <p><strong>Global Outlook and Investment</strong></p>
+  <p>International investors are taking note of Japan’s evolving startup ecosystem. Venture capital funding has surged, attracting both domestic and foreign investors eager to participate in the next wave of Japanese innovation. Several startups are expanding internationally, forging partnerships, and entering global markets, signaling that Japan’s innovation push is not only local but has far-reaching global implications.</p>
+
+  <p><strong>Cultural Shifts and Entrepreneurial Spirit</strong></p>
+  <p>Traditionally known for large, hierarchical corporations, Japan is experiencing a cultural shift toward entrepreneurship and risk-taking. Young professionals are increasingly pursuing startups over conventional corporate careers, motivated by creativity, independence, and the potential to make a meaningful impact. This generational change is injecting fresh energy into the ecosystem, driving a culture where experimentation and agility are celebrated.</p>
+  <blockquote>"Innovation is no longer confined to labs; it is flourishing in the streets, offices, and homes of Japan."</blockquote>
+
+  <p><strong>Challenges and Opportunities</strong></p>
+  <p>Despite the surge, startups in Japan face challenges, including market competition, talent acquisition, and navigating complex regulations. However, the combination of supportive policies, technological excellence, and a growing community of mentors and investors is helping startups overcome these hurdles. As a result, Japan is emerging as a global center for innovative, scalable, and socially impactful ventures.</p>
+
+  <p><strong>Looking Ahead</strong></p>
+  <p>The momentum behind Japan’s startup ecosystem shows no sign of slowing. With continued investment, collaboration, and a cultural embrace of innovation, the country is poised to become a global powerhouse for entrepreneurship. For investors, founders, and policymakers alike, the story unfolding in Japan is a testament to the transformative power of innovation and the enduring potential of startups to reshape the future.
+    
+  </p>
 
   {% else %}
     <p>
@@ -162,5 +380,14 @@
       updates as our newsroom continues to bring you in-depth insights and breaking news from every corner of the globe.
     </p>
   {% endif %}
+
+  <hr style="margin:26px 0; border:none; border-top:1px solid rgba(0,0,0,0.1);">
+      
+      <!-- ✅ Corrected Back to Home URL -->
+      <a href="{% url 'news:home' %}" 
+         class="back-link" 
+         style="display:inline-block; color:var(--brand); font-weight:700; text-decoration:none; margin-top: 30px;">
+        ← Back to Home
+      </a>
 </div>
 {% endblock %}
