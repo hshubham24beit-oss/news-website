@@ -119,7 +119,7 @@ main.container.main-grid {
     <div class="politics-grid">
 
       {% static 'images/politics/government.jpg' as gov_img %}
-      <a href="{% url 'news:countries_category' 1 %}" class="politics-card">
+      <a href="{% url 'news:politics_category' 1 %}?hero_title={{ 'Government & Policy'|urlencode }}&hero_image={{ gov_img|urlencode }}" class="politics-card">
         <div class="img-wrap">
           <img src="{{ gov_img }}" alt="Government & Policy">
           <div class="politics-badge">Government & Policy</div>
@@ -131,7 +131,7 @@ main.container.main-grid {
       </a>
 
       {% static 'images/politics/elections.jpg' as elections_img %}
-      <a href="{% url 'news:countries_category' 2 %}" class="politics-card">
+      <a href="{% url 'news:politics_category' 2 %}?hero_title={{ 'Elections & Voting'|urlencode }}&hero_image={{ elections_img|urlencode }}" class="politics-card">
         <div class="img-wrap">
           <img src="{{ elections_img }}" alt="Elections & Voting">
           <div class="politics-badge">Elections & Voting</div>
@@ -143,7 +143,7 @@ main.container.main-grid {
       </a>
 
       {% static 'images/politics/parties.jpg' as parties_img %}
-      <a href="{% url 'news:countries_category' 3 %}" class="politics-card">
+      <a href="{% url 'news:politics_category' 3 %}?hero_title={{ 'Political Parties & Leaders'|urlencode }}&hero_image={{ parties_img|urlencode }}" class="politics-card">
         <div class="img-wrap">
           <img src="{{ parties_img }}" alt="Political Parties & Leaders">
           <div class="politics-badge">Political Parties & Leaders</div>
@@ -155,7 +155,7 @@ main.container.main-grid {
       </a>
 
       {% static 'images/politics/international.jpg' as intl_img %}
-      <a href="{% url 'news:countries_category' 4 %}" class="politics-card">
+      <a href="{% url 'news:politics_category' 4 %}?hero_title={{ 'International Relations'|urlencode }}&hero_image={{ intl_img|urlencode }}" class="politics-card">
         <div class="img-wrap">
           <img src="{{ intl_img }}" alt="International Relations">
           <div class="politics-badge">International Relations</div>
@@ -167,7 +167,7 @@ main.container.main-grid {
       </a>
 
       {% static 'images/politics/corruption.jpg' as corruption_img %}
-      <a href="{% url 'news:countries_category' 5 %}" class="politics-card">
+      <a href="{% url 'news:politics_category' 5 %}?hero_title={{ 'Corruption & Accountability'|urlencode }}&hero_image={{ corruption_img|urlencode }}" class="politics-card">
         <div class="img-wrap">
           <img src="{{ corruption_img }}" alt="Corruption & Accountability">
           <div class="politics-badge">Corruption & Accountability</div>
@@ -179,7 +179,7 @@ main.container.main-grid {
       </a>
 
       {% static 'images/politics/movements.jpg' as movements_img %}
-      <a href="{% url 'news:countries_category' 6 %}" class="politics-card">
+      <a href="{% url 'news:politics_category' 6 %}?hero_title={{ 'Social & Political Movements'|urlencode }}&hero_image={{ movements_img|urlencode }}" class="politics-card">
         <div class="img-wrap">
           <img src="{{ movements_img }}" alt="Social & Political Movements">
           <div class="politics-badge">Social & Political Movements</div>

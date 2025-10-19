@@ -15,6 +15,7 @@ urlpatterns = [
     path('category/<int:category_id>/', views.category_news, name='category_news'),
     path('news/<int:news_id>/', views.news_detail, name='news_detail'),
     path('politics/', views.politics, name='politics'),
+    path("politics/<int:pk>/", views.politics_category, name="politics_category"),
     
 
 ]

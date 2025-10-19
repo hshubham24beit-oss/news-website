@@ -137,3 +137,22 @@ def news_detail(request, news_id):
 
 def politics(request):
     return render(request, 'news/politics.html')
+
+def politics_category(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+
+    # Read hero params from the querystring (if any)
+    hero_title = request.GET.get('hero_title')   # string or None
+    hero_image = request.GET.get('hero_image')   # url string or None
+
+    # You can also fallback to a hero_article if you use that logic
+    hero_article = None
+
+    context = {
+        'category': category,
+        'hero_title': hero_title,
+        'hero_image': hero_image,
+        'hero_article': hero_article,
+        # ... any other context you already pass (articles, pagination, etc.)
+    }
+    return render(request, 'news/politics_category.html', context)

@@ -1,0 +1,213 @@
+{% extends "news/base.html" %}
+{% load static %}
+
+{% block title %}
+  {% if hero_title %}
+    {{ hero_title }} — Pillai's News
+  {% elif hero_article %}
+    {{ hero_article.title }} — Pillai's News
+  {% else %}
+    {{ category.name }} — Pillai's News
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<style>
+.politics-hero {
+  position: relative;
+  text-align: center;
+  margin-top: 20px !important;
+  padding-top: 20px !important;
+}
+
+.politics-hero img {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+.politics-hero .hero-title {
+  color: black;
+  font-size: 36px;
+  font-weight: 700;
+  margin: 15px 0;
+  text-align: center;
+  margin-top: 24px;
+}
+.container.category-body {
+  max-width: 1000px;
+  margin: 36px auto;
+  padding: 0 12px;
+  text-align: center;
+}
+.large-content {
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px 4%;
+  text-align: justify;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #333;
+  box-sizing: border-box;
+}
+
+.article-list {
+  margin-top: 28px;
+  text-align: left;
+}
+.article-card {
+  padding: 14px 12px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.03);
+  margin-bottom: 12px;
+}
+.article-card h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+.article-meta {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+@media (min-width:900px) {
+  .politics-hero .hero-title { font-size: 44px; }
+}
+
+/* Force hero and content stack vertically like the countries template */
+.politics-hero,
+.large-content {
+  display: block !important;
+  width: 100% !important;
+  margin-top: 60px;
+}
+
+main.container.main-grid {
+  display: block !important;
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+</style>
+
+<!-- HERO -->
+<section class="politics-hero" aria-label="Hero">
+  {# The image src and title are chosen server-side if available; JS below will override from query params if needed #}
+  <img id="hero-img"
+       src="{% if hero_image %}{{ hero_image }}{% elif hero_article and hero_article.image %}{{ hero_article.image.url }}{% else %}{% static 'images/politics-banner.jpg' %}{% endif %}"
+       alt="{% if hero_title %}{{ hero_title }}{% elif hero_article %}{{ hero_article.title }}{% else %}{{ category.name }}{% endif %}">
+
+  <h1 id="hero-title" class="hero-title">
+    {% if hero_title %}
+      {{ hero_title }}
+    {% elif hero_article %}
+      {{ hero_article.title }}
+    {% else %}
+      {{ category.name }}
+    {% endif %}
+  </h1>
+</section>
+
+<!-- MAIN CONTENT (politics category specific) -->
+<div class="large-content">
+  {% if category.id == 1 %}
+    <!-- 1 Government & Policy -->
+    <p><strong>By [Your Name] | October 2025</strong></p>
+    <p>National administrations are rolling out fresh policy measures focused on economic stabilization, public services, and regulatory reform. This piece highlights recent cabinet decisions, legislative proposals, and how central ministries are coordinating to implement priority programs affecting health, infrastructure, and digital governance.</p>
+
+    <p><strong>Key developments:</strong></p>
+    <ul>
+      <li>New fiscal package targeted at regional infrastructure.</li>
+      <li>Regulatory updates aimed at streamlining business permissions.</li>
+      <li>Commitments to expand digital public services nationwide.</li>
+    </ul>
+
+  {% elif category.id == 2 %}
+    <!-- 2 Elections & Voting -->
+    <p><strong>By [Your Name] | October 2025</strong></p>
+    <p>Election cycles and voter-engagement campaigns are reshaping political discourse. From registration drives to debates about electoral reforms, this section covers vote-count readiness, polling updates, and how technology and misinformation are influencing turnout and public trust.</p>
+
+    <p><strong>Spotlight:</strong> Preparing for upcoming local and national ballots — administrative progress and voter information campaigns.</p>
+
+  {% elif category.id == 3 %}
+    <!-- 3 Political Parties & Leaders -->
+    <p><strong>By [Your Name] | October 2025</strong></p>
+    <p>Party realignments, leadership contests, and coalition negotiations are driving headline stories. We cover major party conferences, leadership statements, and the strategic moves parties are taking ahead of key votes and policy negotiations.</p>
+
+    <p><strong>Highlights:</strong> Leadership reshuffles, manifesto updates, and intra-party debates shaping national agendas.</p>
+
+  {% elif category.id == 4 %}
+    <!-- 4 International Relations -->
+    <p><strong>By [Your Name] | October 2025</strong></p>
+    <p>Diplomatic ties, trade negotiations, and multilateral cooperation remain central to global stability. Here we examine bilateral visits, international agreements, and geopolitical developments affecting trade, security, and regional partnerships.</p>
+
+    <p><strong>In focus:</strong> Summaries of recent summits, diplomatic statements, and shifts in foreign policy stances.</p>
+
+  {% elif category.id == 5 %}
+    <!-- 5 Corruption & Accountability -->
+    <p><strong>By [Your Name] | October 2025</strong></p>
+    <p>Investigations, transparency measures, and anti-corruption initiatives are spotlighted here. We report on oversight bodies, legal actions, whistleblower accounts, and reforms intended to strengthen governance and public accountability.</p>
+
+    <p><strong>Notable:</strong> High-profile inquiries, judicial rulings, and policy proposals to enhance transparency.</p>
+
+  {% elif category.id == 6 %}
+    <!-- 6 Social & Political Movements -->
+    <p><strong>By [Your Name] | October 2025</strong></p>
+    <p>Grassroots mobilizations, protest movements, and civic campaigns are transforming politics at local and national levels. Coverage includes major demonstrations, policy demands from civil society, and analysis of how movements influence public debate and legislative priorities.</p>
+
+    <p><strong>Coverage:</strong> Recent demonstrations, campaign goals, and the movement–policy feedback loop.</p>
+
+  {% else %}
+    <p>
+      This section contains the latest updates from across political beats. Select a politics subcategory to read more.
+    </p>
+  {% endif %}
+
+  <hr style="margin:26px 0; border:none; border-top:1px solid rgba(0,0,0,0.1);">
+
+  <a href="{% url 'news:home' %}" 
+     class="back-link" 
+     style="display:inline-block; color:var(--brand); font-weight:700; text-decoration:none; margin-top: 30px;">
+    ← Back to Home
+  </a>
+</div>
+
+<!-- Small JS fallback: if server didn't supply hero_title/hero_image, read from query params and apply them.
+     This ensures clicking a politics-card link like:
+     /politics/category/1/?hero_title=Government%20%26%20Policy&hero_image=/static/images/politics/government.jpg
+     will set the hero exactly as clicked. -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  try {
+    // serverHero value is empty string if not provided by Django context
+    const serverHero = "{{ hero_image|default:'' }}";
+    const serverTitle = "{{ hero_title|default:'' }}";
+
+    // Only use query params if server didn't already provide them
+    if (!serverHero || serverHero.trim() === "") {
+      const params = new URLSearchParams(window.location.search);
+      let img = params.get('hero_image');
+      let title = params.get('hero_title');
+
+      if (img) {
+        // replace + with space and decode
+        img = decodeURIComponent(img.replace(/\+/g, ' '));
+        const heroImgEl = document.getElementById('hero-img');
+        if (heroImgEl) heroImgEl.src = img;
+      }
+
+      if (title) {
+        title = decodeURIComponent(title.replace(/\+/g, ' '));
+        const heroTitleEl = document.getElementById('hero-title');
+        if (heroTitleEl) heroTitleEl.textContent = title;
+      }
+    }
+  } catch (e) {
+    // fail silently — nothing critical
+    console.error('Hero fallback error:', e);
+  }
+});
+</script>
+{% endblock %}
