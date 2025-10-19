@@ -156,3 +156,6 @@ def politics_category(request, pk):
         # ... any other context you already pass (articles, pagination, etc.)
     }
     return render(request, 'news/politics_category.html', context)
+
+def tech(request):
+    return render(request, 'news/tech.html')

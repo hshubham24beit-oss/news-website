@@ -16,6 +16,7 @@ urlpatterns = [
     path('news/<int:news_id>/', views.news_detail, name='news_detail'),
     path('politics/', views.politics, name='politics'),
     path("politics/<int:pk>/", views.politics_category, name="politics_category"),
-    
+    path('tech/', views.tech, name='tech'),
+
 
 ]

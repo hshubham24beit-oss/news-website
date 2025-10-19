@@ -1,0 +1,204 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block title %}Tech — Pillai's News{% endblock %}
+
+{% block content %}
+<style>
+main.container.main-grid {
+  max-width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin: 0 auto !important;
+  display: block !important;
+}
+.tech-page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.tech-inner {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 12px;
+  box-sizing: border-box;
+  text-align: center;
+}
+.tech-hero img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.tech-hero h2 {
+  margin: 24px 0 40px ;
+  font-size: 40px;
+  font-weight: 800;
+  font-family: serif;
+  color: red;
+}
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 60px;
+  margin-top: 80px;
+}
+.category-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  transition: transform .18s ease, box-shadow .18s ease;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.category-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.10);
+}
+.category-card .img-wrap {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+}
+.category-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.category-badge {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  background: #d32f2f;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+.category-card .card-body {
+  padding: 16px;
+  text-align: left;
+}
+.category-card .headline {
+  font-weight: 800;
+  font-size: 1.1rem;
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+.category-card .meta {
+  color: #666;
+  font-size: 0.9rem;
+}
+@media (min-width: 1200px) {
+  .tech-inner { max-width: 1200px; }
+  .category-card .img-wrap { height: 200px; }
+}
+</style>
+
+<div class="tech-page">
+  <div class="tech-inner">
+
+    <!-- 🌟 Tech Banner -->
+    <div class="tech-hero" style="position: relative; display: block;">
+      <img src="{% static 'images/tech-banner.jpg' %}" 
+           alt="Tech Banner" 
+           style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px;">
+      <h2 style="margin-bottom: 50px; font-size: 50px;">Top from the world of the Tech</h2>
+    </div>
+
+    <!-- 🖥 Tech Category Cards -->
+    <div class="category-grid">
+
+      {% static 'images/tech/gadgets.jpg' as gadgets_img %}
+      <a href="#" class="category-card">
+        <div class="img-wrap">
+          <img src="{{ gadgets_img }}" alt="Gadgets & Devices">
+          <div class="category-badge">Gadgets & Devices</div>
+        </div>
+        <div class="card-body">
+          <div class="headline">Tech Innovations: Latest Gadgets and Smart Devices Shaping Our World</div>
+          <div class="meta">Oct 19, 2025</div>
+        </div>
+      </a>
+
+      {% static 'images/tech/ai.jpg' as ai_img %}
+      <a href="#" class="category-card">
+        <div class="img-wrap">
+          <img src="{{ ai_img }}" alt="Artificial Intelligence (AI)">
+          <div class="category-badge">AI</div>
+        </div>
+        <div class="card-body">
+          <div class="headline">AI Revolution: Transforming Tomorrow's Technology Today</div>
+          <div class="meta">Oct 19, 2025</div>
+        </div>
+      </a>
+
+      {% static 'images/tech/startups.jpg' as startups_img %}
+      <a href="#" class="category-card">
+        <div class="img-wrap">
+          <img src="{{ startups_img }}" alt="Startups & Innovation">
+          <div class="category-badge">Startups & Innovation</div>
+        </div>
+        <div class="card-body">
+          <div class="headline">Trailblazing Ideas: The Latest in Startups and Innovation</div>
+          <div class="meta">Oct 19, 2025</div>
+        </div>
+      </a>
+
+      {% static 'images/tech/software.jpg' as software_img %}
+      <a href="#" class="category-card">
+        <div class="img-wrap">
+          <img src="{{ software_img }}" alt="Software & Apps">
+          <div class="category-badge">Software & Apps</div>
+        </div>
+        <div class="card-body">
+          <div class="headline">Latest Innovations and Updates in Software & Apps</div>
+          <div class="meta">Oct 19, 2025</div>
+        </div>
+      </a>
+
+      {% static 'images/tech/cybersecurity.jpg' as security_img %}
+      <a href="#" class="category-card">
+        <div class="img-wrap">
+          <img src="{{ security_img }}" alt="Cybersecurity">
+          <div class="category-badge">Cybersecurity</div>
+        </div>
+        <div class="card-body">
+          <div class="headline">Guarding the Digital Frontier: Latest Trends and Threats in Cybersecurity</div>
+          <div class="meta">Oct 19, 2025</div>
+        </div>
+      </a>
+
+      {% static 'images/tech/socialmedia.jpg' as social_img %}
+      <a href="#" class="category-card">
+        <div class="img-wrap">
+          <img src="{{ social_img }}" alt="Internet & Social Media">
+          <div class="category-badge">Social Media</div>
+        </div>
+        <div class="card-body">
+          <div class="headline">Digital Trends & Online Communities: The Pulse of the Internet Trends</div>
+          <div class="meta">Oct 19, 2025</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <hr style="margin:26px 0; border:none; border-top:1px solid rgba(0,0,0,0.1);">
+
+  <a href="{% url 'news:home' %}" 
+     class="back-link" 
+     style="display:inline-block; color:var(--brand); font-weight:700; text-decoration:none; margin-top: 30px;">
+    ← Back to Home
+  </a>
+</div>
+{% endblock %}
