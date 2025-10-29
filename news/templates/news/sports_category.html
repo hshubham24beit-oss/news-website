@@ -1,0 +1,190 @@
+{% extends "news/base.html" %}
+{% load static %}
+
+{% block title %}
+  {% if hero_title %}
+    {{ hero_title }} — Pillai's News
+  {% elif hero_article %}
+    {{ hero_article.title }} — Pillai's News
+  {% else %}
+    {{ category.name }} — Pillai's News
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<style>
+.sports-hero {
+  position: relative;
+  text-align: center;
+  margin-top: 20px !important;
+  padding-top: 20px !important;
+}
+
+.sports-hero img {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+.sports-hero .hero-title {
+  color: #d32f2f; /* sports accent (red) */
+  font-size: 36px;
+  font-weight: 700;
+  margin: 15px 0;
+  text-align: center;
+  margin-top: 24px;
+}
+.container.category-body {
+  max-width: 1000px;
+  margin: 36px auto;
+  padding: 0 12px;
+  text-align: center;
+}
+.large-content {
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px 4%;
+  text-align: justify;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #333;
+  box-sizing: border-box;
+}
+
+.match-list {
+  margin-top: 28px;
+  text-align: left;
+}
+.match-card {
+  padding: 14px 12px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.03);
+  margin-bottom: 12px;
+}
+.match-card h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+.article-meta {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+@media (min-width:900px) {
+  .sports-hero .hero-title { font-size: 44px; }
+}
+
+/* Force hero and content stack vertically */
+.sports-hero,
+.large-content {
+  display: block !important;
+  width: 100% !important;
+  margin-top: 60px;
+}
+
+main.container.main-grid {
+  display: block !important;
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+</style>
+
+<!-- HERO -->
+<section class="sports-hero" aria-label="Hero">
+  <img id="hero-img"
+       src="{% if hero_image %}{{ hero_image }}{% elif hero_article and hero_article.image %}{{ hero_article.image.url }}{% else %}{% static 'images/sports-banner.jpg' %}{% endif %}"
+       alt="{% if hero_title %}{{ hero_title }}{% elif hero_article %}{{ hero_article.title }}{% else %}{{ category.name }}{% endif %}">
+
+  <h1 id="hero-title" class="hero-title">
+    {% if hero_title %}
+      {{ hero_title }}
+    {% elif hero_article %}
+      {{ hero_article.title }}
+    {% else %}
+      {{ category.name }}
+    {% endif %}
+  </h1>
+</section>
+
+<!-- MAIN CONTENT (sports category specific) -->
+<div class="large-content">
+  {% if category.id == 10 %}
+    <!-- Football -->
+    <p><strong>By [Your Name] | October 2025</strong></p>
+    <p>Match reports, tactical analysis, transfer rumours and feature stories from the world of football — domestic leagues to international tournaments.</p>
+    <ul>
+      <li>Match previews & live reports</li>
+      <li>Player profiles and transfer updates</li>
+      <li>Tactical breakdowns and statistics</li>
+    </ul>
+
+  {% elif category.id == 11 %}
+    <!-- Cricket -->
+    <p><strong>By [Your Name] | October 2025</strong></p>
+    <p>Scorecards, series coverage, and deep dives into technique and strategy across Test, ODI and T20 cricket.</p>
+    <ul>
+      <li>Live scores and match summaries</li>
+      <li>Series and tournament coverage</li>
+      <li>Player interviews and analysis</li>
+    </ul>
+
+  {% elif category.id == 12 %}
+    <!-- Basketball -->
+    <p><strong>By [Your Name] | October 2025</strong></p>
+    <p>Highlights from leagues around the world, player spotlights, and breakdowns of plays, lineups and coaching moves.</p>
+
+  {% elif category.id == 13 %}
+    <!-- Athletics -->
+    <p><strong>By [Your Name] | October 2025</strong></p>
+    <p>Coverage of track & field events, national meets, records, and athlete preparation.</p>
+
+  {% elif category.id == 14 %}
+    <!-- Tennis -->
+    <p><strong>By [Your Name] | October 2025</strong></p>
+    <p>Grand slam coverage, match analysis, and profiles of top-ranked players.</p>
+
+  {% else %}
+    <p>This section brings you the latest from the sports world. Choose a subcategory to read full coverage and match reports.</p>
+  {% endif %}
+
+  <hr style="margin:26px 0; border:none; border-top:1px solid rgba(0,0,0,0.1);">
+
+  <a href="{% url 'news:home' %}" 
+     class="back-link" 
+     style="display:inline-block; color:var(--brand); font-weight:700; text-decoration:none; margin-top: 30px;">
+    ← Back to Home
+  </a>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  try {
+    const serverHero = "{{ hero_image|default:'' }}";
+    const serverTitle = "{{ hero_title|default:'' }}";
+
+    if (!serverHero || serverHero.trim() === "") {
+      const params = new URLSearchParams(window.location.search);
+      let img = params.get('hero_image');
+      let title = params.get('hero_title');
+
+      if (img) {
+        img = decodeURIComponent(img.replace(/\+/g, ' '));
+        const heroImgEl = document.getElementById('hero-img');
+        if (heroImgEl) heroImgEl.src = img;
+      }
+
+      if (title) {
+        title = decodeURIComponent(title.replace(/\+/g, ' '));
+        const heroTitleEl = document.getElementById('hero-title');
+        if (heroTitleEl) heroTitleEl.textContent = title;
+      }
+    }
+  } catch (e) {
+    console.error('Hero fallback error:', e);
+  }
+});
+</script>
+{% endblock %}

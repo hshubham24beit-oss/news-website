@@ -119,7 +119,8 @@ main.container.main-grid {
     <div class="sports-grid">
 
       {% static 'images/sports/football.jpg' as football_img %}
-      <a href="#" class="sports-card">
+         <a href="{% url 'news:sports_category' 1 %}?hero_title={{ 'Latest Updates and Highlights from Global Football Leagues'|urlencode }}&hero_image={{ football_img|urlencode }}" class="sports-card">
+
         <div class="img-wrap">
           <img src="{{ football_img }}" alt="Football (Soccer)">
           <div class="sports-badge">Football (Soccer)</div>
@@ -131,7 +132,8 @@ main.container.main-grid {
       </a>
 
       {% static 'images/sports/cricket.jpg' as cricket_img %}
-      <a href="#" class="sports-card">
+        <a href="{% url 'news:sports_category' 2 %}?hero_title={{'Cricket Fever:Match Reports,Rankings,and Upcoming Tournaments'|urlencode }}&hero_image={{ cricket_img|urlencode }}" class="sports-card">
+
         <div class="img-wrap">
           <img src="{{ cricket_img }}" alt="Cricket">
           <div class="sports-badge">Cricket</div>
@@ -143,7 +145,8 @@ main.container.main-grid {
       </a>
 
       {% static 'images/sports/basketball.jpg' as basketball_img %}
-      <a href="#" class="sports-card">
+        <a href="{% url 'news:sports_category' 3 %}?hero_title={{ 'NBA and International Basketball News and Player Insights'|urlencode }}&hero_image={{ basketball_img|urlencode }}" class="sports-card">
+
         <div class="img-wrap">
           <img src="{{ basketball_img }}" alt="Basketball">
           <div class="sports-badge">Basketball</div>
@@ -155,7 +158,8 @@ main.container.main-grid {
       </a>
 
       {% static 'images/sports/tennis.jpg' as tennis_img %}
-      <a href="#" class="sports-card">
+        <a href="{% url 'news:sports_category' 4 %}?hero_title={{ 'Grand Slam Updates and Rising Stars of World Tennis'|urlencode }}&hero_image={{ Tennis_img|urlencode }}" class="sports-card">
+
         <div class="img-wrap">
           <img src="{{ tennis_img }}" alt="Tennis">
           <div class="sports-badge">Tennis</div>
@@ -167,7 +171,8 @@ main.container.main-grid {
       </a>
 
       {% static 'images/sports/baseball.jpg' as baseball_img %}
-      <a href="#" class="sports-card">
+        <a href="{% url 'news:sports_category' 5 %}?hero_title={{ 'Baseball Highlights and Starts from MLB and International Leagues'|urlencode }}&hero_image={{ baseball_img|urlencode }}" class="sports-card">
+
         <div class="img-wrap">
           <img src="{{ baseball_img }}" alt="Baseball">
           <div class="sports-badge">Baseball</div>
@@ -179,7 +184,8 @@ main.container.main-grid {
       </a>
 
       {% static 'images/sports/hockey.jpg' as hockey_img %}
-      <a href="#" class="sports-card">
+        <a href="{% url 'news:sports_category' 6 %}?hero_title={{ 'Exciting Moments from Ice Hockey and Field Hockey Tournaments'|urlencode }}&hero_image={{ hockey_img|urlencode }}" class="sports-card">
+
         <div class="img-wrap">
           <img src="{{ hockey_img }}" alt="Hockey">
           <div class="sports-badge">Hockey</div>

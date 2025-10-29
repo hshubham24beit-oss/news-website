@@ -242,5 +242,18 @@ def sports(request):
     }
     return render(request, 'news/sports.html', context)
 
-def sports_category(request):
-    return render(request, 'news/sports-category.html')
+
+
+
+from django.shortcuts import render, get_object_or_404
+from .models import Category
+
+def sports_category(request, category_id):
+    category = get_object_or_404(Category, id=category_id)
+    hero_title = request.GET.get('hero_title', category.name)
+    hero_image = request.GET.get('hero_image', '')
+    return render(request, 'news/sports_category.html', {
+        'category': category,
+        'hero_title': hero_title,
+        'hero_image': hero_image,
+    })

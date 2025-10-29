@@ -23,7 +23,9 @@ urlpatterns = [
 
     # Weather API proxy (POST)
     path('api/weather/', views.weather_proxy, name='weather_proxy'),
+
     path('sports/', views.sports, name='sports'),
-    path('sports/', views.sports_category, name='sports_category'),
+   
+    path('sports/<int:category_id>/', views.sports_category, name='sports_category'),
 
 ]
