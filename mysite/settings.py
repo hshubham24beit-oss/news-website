@@ -136,3 +136,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 from datetime import datetime
 STATIC_VERSION = datetime.now().strftime("%Y%m%d%H%M%S")
+
+
+import os
+# settings.py
+OPENWEATHERMAP_API_KEY = "df8491ba3283645da5dfbcb273e88ca3"
+# Optional: If you want to use Open-Meteo (no key), set USE_OPEN_METEO = True
+USE_OPEN_METEO = False

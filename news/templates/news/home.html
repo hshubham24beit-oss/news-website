@@ -85,21 +85,134 @@
     </ul>
   </section>
 
-  <!-- WEATHER SECTION -->
-  <section class="sidebar-card weather">
-    <h2>🌤 Weather Update</h2>
-    <div class="weather-box">
-      <div class="temp">28°C</div>
-      <div class="condition">Partly Cloudy</div>
-      <div class="location">Mumbai, India</div>
+  <!-- WEATHER WIDGET: paste this in news/home.html where the sidebar is -->
+<section class="sidebar-card weather" id="weather-card">
+  <h2>🌤 Weather Update</h2>
+
+  <div id="weather-box" class="weather-box">
+    <div id="weather-loading">Detecting location & fetching weather…</div>
+
+    <div id="weather-content" style="display:none;">
+      <img id="weather-icon" alt="weather icon" class="weather-icon" style="display:none;width:56px;height:56px" />
+      <div class="temp" id="weather-temp">--°C</div>
+      <div class="condition" id="weather-condition">--</div>
+      <div class="location" id="weather-location">--</div>
       <div class="details">
-        <p>💧 Humidity: 62%</p>
-        <p>🌬 Wind: 9 km/h</p>
-        <p>🌅 Sunrise: 6:22 AM</p>
-        <p>🌇 Sunset: 6:11 PM</p>
+        <p id="weather-humidity">💧 Humidity: --%</p>
+        <p id="weather-wind">🌬 Wind: --</p>
+        <p id="weather-sunrise">🌅 Sunrise: --</p>
+        <p id="weather-sunset">🌇 Sunset: --</p>
       </div>
     </div>
-  </section>
+
+    <div id="weather-error" style="display:none;" class="muted">Unable to fetch weather.</div>
+  </div>
+</section>
+
+<script>
+(function() {
+  function getCookie(name) {
+    const v = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return v ? v.pop() : '';
+  }
+
+  function unixToLocalTime(unixTs, tzOffsetSec) {
+    if (!unixTs) return '--';
+    const d = new Date((unixTs + (tzOffsetSec || 0)) * 1000);
+    return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+
+  function setWeatherUI(data) {
+    const tempEl = document.getElementById('weather-temp');
+    const condEl = document.getElementById('weather-condition');
+    const locEl = document.getElementById('weather-location');
+    const humEl = document.getElementById('weather-humidity');
+    const windEl = document.getElementById('weather-wind');
+    const sunUpEl = document.getElementById('weather-sunrise');
+    const sunDownEl = document.getElementById('weather-sunset');
+    const iconEl = document.getElementById('weather-icon');
+
+    if (tempEl) tempEl.textContent = data.temp ? Math.round(data.temp) + "°C" : '--';
+    if (condEl) condEl.textContent = data.description || data.condition || '--';
+    if (locEl) locEl.textContent = data.location_name || '--';
+    if (humEl) humEl.textContent = '💧 Humidity: ' + (data.humidity ?? '--') + '%';
+
+    if (windEl) {
+      const windKph = (data.wind_kph != null) ? Math.round(data.wind_kph * 3.6 * 10) / 10 : '--';
+      windEl.textContent = '🌬 Wind: ' + (windKph !== '--' ? windKph + ' km/h' : '--');
+    }
+
+    if (iconEl) {
+      if (data.icon) {
+        iconEl.src = data.icon; iconEl.style.display = 'inline-block';
+      } else iconEl.style.display = 'none';
+    }
+
+    const tzOffset = (data.raw && data.raw.timezone) ? data.raw.timezone : 0;
+    if (sunUpEl) sunUpEl.textContent = '🌅 Sunrise: ' + unixToLocalTime(data.sunrise, tzOffset);
+    if (sunDownEl) sunDownEl.textContent = '🌇 Sunset: ' + unixToLocalTime(data.sunset, tzOffset);
+
+    document.getElementById('weather-loading').style.display = 'none';
+    document.getElementById('weather-error').style.display = 'none';
+    document.getElementById('weather-content').style.display = '';
+  }
+
+  function showError(msg) {
+    document.getElementById('weather-loading').style.display = 'none';
+    const err = document.getElementById('weather-error');
+    err.textContent = msg || 'Unable to fetch weather.';
+    err.style.display = '';
+  }
+
+  async function fetchWeather(lat, lon) {
+    try {
+      const csrftoken = getCookie('csrftoken');
+      console.log('[weather] fetchWeather lat=', lat, 'lon=', lon, 'csrflen=', csrftoken?csrftoken.length:0);
+
+      const resp = await fetch("{% url 'news:weather_proxy' %}", {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrftoken || '' },
+        body: JSON.stringify({ lat: lat, lon: lon })
+      });
+
+      console.log('[weather] response status', resp.status);
+      if (!resp.ok) {
+        const txt = await resp.text();
+        console.error('[weather] server error', txt);
+        showError('Weather fetch failed: ' + resp.status);
+        return;
+      }
+
+      const data = await resp.json();
+      setWeatherUI(data);
+    } catch (err) {
+      console.error('[weather] fetch error', err);
+      showError('Network error while fetching weather.');
+    }
+  }
+
+  function fallbackToIP() {
+    fetch('https://ipapi.co/json').then(r=>r.json()).then(d=>{
+      const lat = d.latitude || d.lat; const lon = d.longitude || d.lon;
+      if (lat && lon) fetchWeather(lat, lon); else showError('Could not detect location.');
+    }).catch(e=>{
+      console.warn('[weather] IP fallback error', e);
+      showError('Could not detect location.');
+    });
+  }
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      pos => fetchWeather(pos.coords.latitude, pos.coords.longitude),
+      err => { console.warn('[weather] geolocation err', err); fallbackToIP(); },
+      { timeout: 8000 }
+    );
+  } else fallbackToIP();
+})();
+</script>
+
+
 
   <!-- ABOUT SECTION -->
   <section class="sidebar-card about">

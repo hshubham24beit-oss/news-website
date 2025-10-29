@@ -185,5 +185,19 @@ html,body { margin:0; padding:0; font-family: "Roboto", Arial, sans-serif; color
 }
 
 
+/* add to your main CSS file */
+.weather-box { padding: 12px; border-radius: 8px; }
+.weather-box.loading { opacity: 0.9; }
+#weather-card.clear { background: linear-gradient(#ffe680, #fffbe6); }
+#weather-card.rain { background: linear-gradient(#a6c0ff, #f0f7ff); }
+#weather-card.clouds { background: linear-gradient(#e6e9ef, #f7f8fb); }
+#weather-card.snow { background: linear-gradient(#e6f7ff, #ffffff); }
+#weather-card.thunderstorm { background: linear-gradient(#d6c8ff, #efe6ff); }
+#weather-card.mist { background: linear-gradient(#e9eef7, #ffffff); }
+
+.weather-icon { width: 64px; height: 64px; display:none; }
+.temp { font-size: 1.6rem; font-weight: 600; }
+.condition { font-size: 0.95rem; color: #333; }
+.muted { color: #666; font-size: 0.9rem; }
 
 

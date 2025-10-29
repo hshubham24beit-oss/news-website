@@ -1,7 +1,22 @@
 # news/views.py
+import json
+import requests
+from django.views.decorators.csrf import ensure_csrf_cookie
+
+from django.conf import settings
+from django.core.cache import cache
+from django.http import JsonResponse, HttpResponseBadRequest, HttpResponseServerError
 from django.shortcuts import render, get_object_or_404
-from django.core.exceptions import FieldError
+from django.views.decorators.http import require_POST
+
 from .models import News, Category
+
+CACHE_TTL = 60 * 5  # cache 5 minutes
+
+@ensure_csrf_cookie
+def home(request):
+    ...
+
 
 def home(request):
     news_qs = News.objects.order_by('-created_at')
@@ -23,7 +38,7 @@ def world(request):
     try:
         try:
             category = Category.objects.get(slug__iexact='world')
-        except (Category.DoesNotExist, FieldError):
+        except (Category.DoesNotExist, Exception):
             category = Category.objects.get(name__iexact='World')
     except Category.DoesNotExist:
         category = get_object_or_404(Category, name__iexact='World')
@@ -44,13 +59,6 @@ def world(request):
 
 
 def category_news(request, category_id):
-    """
-    Generic category page by id used for home/category links.
-    Uses distinct context keys: category, category_hero, category_articles
-    Renders templates/news/countries-category.html (you already have this file).
-    """
-    print("DEBUG: category_news called for id=", category_id, "path=", request.path)
-
     category = get_object_or_404(Category, id=category_id)
     news_qs = News.objects.filter(category=category).order_by('-created_at')
 
@@ -62,42 +70,20 @@ def category_news(request, category_id):
         'category_hero': category_hero,
         'category_articles': category_articles,
     }
-    # render the template you already have
     return render(request, 'news/detail.html', context)
 
-# news/views.py
-
-from django.shortcuts import render, get_object_or_404
 
 def _attach_teaser_to_queryset(qs):
-    """
-    Ensure every News instance in qs has a safe .teaser attribute we can render
-    in templates without risking VariableDoesNotExist.
-    """
     for obj in qs:
-        # prefer excerpt, then summary, then empty string
-        teaser = ''
-        # use getattr with defaults to avoid attribute errors
         teaser = getattr(obj, 'excerpt', None) or getattr(obj, 'summary', None) or ''
-        # set attribute on the instance (harmless and handy in template)
         setattr(obj, 'teaser', teaser)
     return qs
 
 
 def country_category(request, category_id):
-    """
-    Country/category view.
-    Priority:
-      1. Use hero_title & hero_image passed via GET (from World page).
-      2. Otherwise, fall back to latest article in that category.
-    Also attach .teaser to all article objects.
-    """
-    print("DEBUG country_category:", request.path, request.GET.dict())
-
     category = get_object_or_404(Category, id=category_id)
     news_qs = News.objects.filter(category=category).order_by('-created_at')
 
-    # GET params from world page (preferred)
     hero_title = request.GET.get('hero_title')
     hero_image = request.GET.get('hero_image')
 
@@ -111,13 +97,12 @@ def country_category(request, category_id):
             except Exception:
                 hero_image = None
 
-    # Prepare other_articles queryset/list and attach teaser safely
     if hero_article:
         other_qs = news_qs.exclude(id=hero_article.id)[:20]
     else:
         other_qs = news_qs[:20]
 
-    other_qs = list(other_qs)  # evaluate
+    other_qs = list(other_qs)
     _attach_teaser_to_queryset(other_qs)
 
     context = {
@@ -130,22 +115,19 @@ def country_category(request, category_id):
     return render(request, 'news/countries-category.html', context)
 
 
-
 def news_detail(request, news_id):
     news = get_object_or_404(News, id=news_id)
     return render(request, 'news/detail.html', {'news': news})
 
+
 def politics(request):
     return render(request, 'news/politics.html')
 
+
 def politics_category(request, pk):
     category = get_object_or_404(Category, pk=pk)
-
-    # Read hero params from the querystring (if any)
-    hero_title = request.GET.get('hero_title')   # string or None
-    hero_image = request.GET.get('hero_image')   # url string or None
-
-    # You can also fallback to a hero_article if you use that logic
+    hero_title = request.GET.get('hero_title')
+    hero_image = request.GET.get('hero_image')
     hero_article = None
 
     context = {
@@ -153,12 +135,13 @@ def politics_category(request, pk):
         'hero_title': hero_title,
         'hero_image': hero_image,
         'hero_article': hero_article,
-        # ... any other context you already pass (articles, pagination, etc.)
     }
     return render(request, 'news/politics_category.html', context)
 
+
 def tech(request):
     return render(request, 'news/tech.html')
+
 
 def tech_category(request, category_id):
     category = get_object_or_404(Category, id=category_id)
@@ -169,3 +152,85 @@ def tech_category(request, category_id):
         'hero_title': hero_title,
         'hero_image': hero_image,
     })
+
+
+@require_POST
+def weather_proxy(request):
+    """
+    Accepts JSON body: {"lat": 18.5204, "lon": 73.8567}
+    Returns simplified JSON from OpenWeatherMap or Open-Meteo.
+    CSRF is enforced (the front-end should send X-CSRFToken).
+    """
+    try:
+        data = json.loads(request.body.decode("utf-8"))
+        lat = float(data.get("lat"))
+        lon = float(data.get("lon"))
+    except Exception:
+        return HttpResponseBadRequest("Invalid payload")
+
+    cache_key = f"weather:{lat:.4f}:{lon:.4f}"
+    cached = cache.get(cache_key)
+    if cached:
+        return JsonResponse(cached)
+
+    try:
+        if getattr(settings, "USE_OPEN_METEO", False):
+            # Open-Meteo (no API key)
+            url = (
+                f"https://api.open-meteo.com/v1/forecast?"
+                f"latitude={lat}&longitude={lon}&current_weather=true&timezone=auto"
+            )
+            resp = requests.get(url, timeout=6)
+            resp.raise_for_status()
+            jw = resp.json()
+            cw = jw.get("current_weather", {})
+            result = {
+                "temp": cw.get("temperature"),
+                "condition": "Unknown",
+                "icon": None,
+                "humidity": None,
+                "wind_kph": cw.get("windspeed"),
+                "sunrise": None,
+                "sunset": None,
+                "location_name": jw.get("timezone", ""),
+                "raw": jw,
+            }
+        else:
+            appid = getattr(settings, "OPENWEATHERMAP_API_KEY", None)
+            if not appid:
+                return HttpResponseServerError("OPENWEATHERMAP_API_KEY not configured on server.")
+            url = (
+                "https://api.openweathermap.org/data/2.5/weather"
+                f"?lat={lat}&lon={lon}&appid={appid}&units=metric"
+            )
+            resp = requests.get(url, timeout=6)
+            resp.raise_for_status()
+            jw = resp.json()
+
+            weather = jw.get("weather", [{}])[0]
+            main = jw.get("main", {})
+            wind = jw.get("wind", {})
+            sys = jw.get("sys", {})
+
+            result = {
+                "temp": main.get("temp"),
+                "condition": weather.get("main") or weather.get("description"),
+                "description": weather.get("description"),
+                "icon": (
+                    f"https://openweathermap.org/img/wn/{weather.get('icon')}@2x.png"
+                    if weather.get("icon")
+                    else None
+                ),
+                "humidity": main.get("humidity"),
+                "wind_kph": wind.get("speed"),
+                "sunrise": sys.get("sunrise"),
+                "sunset": sys.get("sunset"),
+                "location_name": f"{jw.get('name','')}, {jw.get('sys',{}).get('country','')}",
+                "raw": jw,
+            }
+    except requests.RequestException as exc:
+        # upstream network error / API error
+        return HttpResponseServerError(f"Weather provider error: {exc}")
+
+    cache.set(cache_key, result, CACHE_TTL)
+    return JsonResponse(result)
