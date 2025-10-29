@@ -234,3 +234,13 @@ def weather_proxy(request):
 
     cache.set(cache_key, result, CACHE_TTL)
     return JsonResponse(result)
+
+def sports(request):
+    # pass any context if needed, e.g. active tab info
+    context = {
+        'active_category': 'sports',  # optional: useful for navbar active class
+    }
+    return render(request, 'news/sports.html', context)
+
+def sports_category(request):
+    return render(request, 'news/sports-category.html')
