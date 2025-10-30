@@ -27,9 +27,62 @@ main.container.main-grid {
   margin: 0 auto;
   padding: 0 12px;
   box-sizing: border-box;
+}
+
+/* center only hero and grid */
+.ent-hero, .ent-grid {
   text-align: center;
 }
 
+/* back link wrapper only left align */
+.back-home-wrapper {
+  width: 100%;
+  text-align: left;
+  margin-top: 20px;
+}
+
+.back-link {
+  color: var(--brand);
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+/* display area styles */
+#ent-display {
+  text-align: center;
+  margin-top: 30px;
+}
+
+#ent-display img {
+  width: 100%;
+  max-width: 900px;
+  display: block;
+  margin: 0 auto 20px;
+  border-radius: 10px;
+}
+
+#ent-text {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+/* small back button inside display */
+#back-btn {
+  font-weight: 700;
+  margin-bottom: 20px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 18px;
+  display: inline-block;
+  text-align: left;
+}
+
+/* rest of original styles */
 .ent-hero img {
   width: 100%;
   height: 300px;
@@ -219,17 +272,19 @@ main.container.main-grid {
       </div>
     </div>
 
-    <div id="ent-display" style="display:none; margin-top:30px;">
-      
-        <img id="ent-image" src="" alt="">
-        <div class="ent-text" id="ent-text"></div>
+    <!-- Display area (category view) -->
+    <div id="ent-display" style="display:none;">
      
-      <button id="back-btn" style="margin-top:20px; padding:8px 16px; border:none; background:#e91e63; color:#fff; border-radius:6px; cursor:pointer;">← Back</button>
+      <img id="ent-image" src="" alt="">
+      <div class="ent-text" id="ent-text"></div>
     </div>
 
     <hr style="margin:26px 0; border:none; border-top:1px solid rgba(0,0,0,0.1);">
 
-    <a href="{% url 'news:home' %}" class="back-link" style="display:inline-block; color:var(--brand); font-weight:700; text-decoration:none; margin-top: 30px;">← Back to Home</a>
+    <!-- Back to home left aligned -->
+    <div class="back-home-wrapper">
+      <a href="{% url 'news:home' %}" class="back-link">← Back to Home</a>
+    </div>
 
   </div>
 </div>
@@ -239,7 +294,7 @@ const entDetails = {
   "Movies": {
     img: "{% static 'images/entertainment/rrr.jpg' %}",
     description: `
-      <h3>🎬 Movies — In Depth</h3>
+      <h2>🎬 Movies — In Depth</h2>
       <p><strong>Overview:</strong> From independent festival winners to global blockbusters, the Movies section covers everything film-related — releases, reviews, interviews, box-office analysis, and festival coverage.</p>
       <p><strong>What we cover:</strong></p>
       <ul>
@@ -254,7 +309,7 @@ const entDetails = {
   "TV Shows": {
     img: "{% static 'images/entertainment/show.jpg' %}",
     description: `
-      <h3>📺 TV Shows — Binge, Follow, Discuss</h3>
+      <h2>📺 TV Shows — Binge, Follow, Discuss</h2>
       <p><strong>Overview:</strong> Long-form storytelling has exploded across streaming and broadcast platforms. We highlight new seasons, must-watch limited series, episodic recaps, and critical takes on major shows.</p>
       <p><strong>What we cover:</strong></p>
       <ul>
@@ -269,7 +324,7 @@ const entDetails = {
   "Music": {
     img: "{% static 'images/entertainment/song.jpg' %}",
     description: `
-      <h3>🎵 Music — Releases, Scenes & Sound</h3>
+      <h2>🎵 Music — Releases, Scenes & Sound</h2>
       <p><strong>Overview:</strong> Our Music coverage spans album reviews, single releases, concert reports, artist profiles, and features on trends across genres from pop and hip-hop to classical and regional music.</p>
       <p><strong>What we cover:</strong></p>
       <ul>
@@ -284,7 +339,7 @@ const entDetails = {
   "Celebrity": {
     img: "{% static 'images/entertainment/info.jpg' %}",
     description: `
-      <h3>📖 Celebrity — Lifestyle, Profiles & Human Stories</h3>
+      <h2>📖 Celebrity — Lifestyle, Profiles & Human Stories</h2>
       <p><strong>Overview:</strong> Beyond gossip, our Celebrity section focuses on profiles, career retrospectives, philanthropic work, and responsible reporting on personal stories.</p>
       <p><strong>What we cover:</strong></p>
       <ul>
@@ -299,7 +354,7 @@ const entDetails = {
   "Gaming": {
     img: "{% static 'images/entertainment/gaming.jpg' %}",
     description: `
-      <h3>🎮 Gaming — Titles, Esports & Culture</h3>
+      <h2>🎮 Gaming — Titles, Esports & Culture</h2>
       <p><strong>Overview:</strong> Gaming is a fast-moving space covering AAA launches, indie gems, esports tournaments, hardware, and the communities that form around games.</p>
       <p><strong>What we cover:</strong></p>
       <ul>
@@ -314,7 +369,7 @@ const entDetails = {
   "Art & Culture": {
     img: "{% static 'images/entertainment/art.jpg' %}",
     description: `
-      <h3>🎭 Art & Culture — Exhibitions, Theatre & Heritage</h3>
+      <h2>🎭 Art & Culture — Exhibitions, Theatre & Heritage</h2>
       <p><strong>Overview:</strong> Art & Culture coverage explores visual arts, theatre, dance, literature, cultural heritage, and festivals — with reviews, exhibition guides, and artist interviews.</p>
       <p><strong>What we cover:</strong></p>
       <ul>
@@ -331,17 +386,23 @@ const entDetails = {
 document.querySelectorAll('.ent-card').forEach(card => {
   card.addEventListener('click', () => {
     const ent = card.dataset.ent;
+    // set image and content
     document.getElementById('ent-image').src = entDetails[ent].img;
     document.getElementById('ent-text').innerHTML = entDetails[ent].description;
+
+    // show category view, hide grid + banner
     document.getElementById('all-entertainment').style.display = 'none';
+    document.querySelector('.ent-hero').style.display = 'none';
     document.getElementById('ent-display').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 });
 
+// back button inside category view
 document.getElementById('back-btn').addEventListener('click', () => {
   document.getElementById('ent-display').style.display = 'none';
   document.getElementById('all-entertainment').style.display = 'grid';
+  document.querySelector('.ent-hero').style.display = 'block';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 </script>
