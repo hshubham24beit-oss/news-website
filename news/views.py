@@ -257,3 +257,27 @@ def sports_category(request, category_id):
         'hero_title': hero_title,
         'hero_image': hero_image,
     })
+
+
+
+
+# news/views.py
+from django.shortcuts import render, get_object_or_404
+from .models import Category
+
+
+def entertainment(request):
+    return render(request, 'news/entertainment.html')
+
+def entertainment_category(request, category_id):
+    category = get_object_or_404(Category, id=category_id)
+    hero_title = request.GET.get('hero_title', category.name)
+    hero_image = request.GET.get('hero_image', '')
+    return render(request, 'news/entertainment_category.html', {
+        'category': category,
+        'hero_title': hero_title,
+        'hero_image': hero_image,
+    })
+
+
+

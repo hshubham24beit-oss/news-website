@@ -1,0 +1,348 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block title %}Entertainment — Pillai's News{% endblock %}
+
+{% block content %}
+<style>
+main.container.main-grid {
+  max-width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin: 0 auto !important;
+  display: block !important;
+}
+
+.ent-page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ent-inner {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 12px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.ent-hero img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.ent-hero h2 {
+  margin: 24px 0 40px;
+  font-size: 40px;
+  font-weight: 800;
+  font-family: serif;
+  color: #e91e63; /* entertainment color */
+}
+
+.ent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 60px;
+  margin-top: 80px;
+}
+
+.ent-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  transition: transform .18s ease, box-shadow .18s ease;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  cursor: pointer;
+}
+
+.ent-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.10);
+}
+
+.ent-card .img-wrap {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+}
+
+.ent-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ent-badge {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  background: #e91e63;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.ent-card .card-body {
+  padding: 16px;
+  text-align: left;
+}
+
+.ent-card .headline {
+  font-weight: 800;
+  font-size: 1.1rem;
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+
+.ent-card .meta {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* content display card */
+.ent-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  text-align: left;
+  border-radius: 12px;
+}
+
+.ent-container img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 1200px) {
+  .ent-inner { max-width: 1200px; }
+  .ent-card .img-wrap { height: 200px; }
+}
+</style>
+
+<div class="ent-page">
+  <div class="ent-inner">
+
+    <div class="ent-hero">
+      <img src="{% static 'images/entertainment/banner.jpg' %}" alt="Entertainment Banner">
+      <h2>Latest in Movies, TV, Music & More</h2>
+    </div>
+
+    <div class="ent-grid" id="all-entertainment">
+      <!-- Movies -->
+      <div class="ent-card" data-ent="Movies">
+        <div class="img-wrap">
+          <img src="{% static 'images/entertainment/rrr.jpg' %}" alt="Movies">
+          <div class="ent-badge">Movies</div>
+        </div>
+        <div class="card-body">
+          <div class="headline">Top Box Office Hits and Upcoming Movie Releases</div>
+          <div class="meta">Oct 22, 2025</div>
+        </div>
+      </div>
+
+      <!-- TV Shows -->
+      <div class="ent-card" data-ent="TV Shows">
+        <div class="img-wrap">
+          <img src="{% static 'images/entertainment/show.jpg' %}" alt="TV Shows">
+          <div class="ent-badge">TV Shows</div>
+        </div>
+        <div class="card-body">
+          <div class="headline">Trending TV Shows You Must Watch This Season</div>
+          <div class="meta">Oct 22, 2025</div>
+        </div>
+      </div>
+
+      <!-- Music -->
+      <div class="ent-card" data-ent="Music">
+        <div class="img-wrap">
+          <img src="{% static 'images/entertainment/song.jpg' %}" alt="Music">
+          <div class="ent-badge">Music</div>
+        </div>
+        <div class="card-body">
+          <div class="headline">Latest Album Releases and Music Industry News</div>
+          <div class="meta">Oct 22, 2025</div>
+        </div>
+      </div>
+
+      <!-- Celebrity -->
+      <div class="ent-card" data-ent="Celebrity">
+        <div class="img-wrap">
+          <img src="{% static 'images/entertainment/info.jpg' %}" alt="Celebrity">
+          <div class="ent-badge">Celebrity</div>
+        </div>
+        <div class="card-body">
+          <div class="headline">Inside Stories of Your Favorite Celebrities</div>
+          <div class="meta">Oct 22, 2025</div>
+        </div>
+      </div>
+
+      <!-- Gaming -->
+      <div class="ent-card" data-ent="Gaming">
+        <div class="img-wrap">
+          <img src="{% static 'images/entertainment/gaming.jpg' %}" alt="Gaming">
+          <div class="ent-badge">Gaming</div>
+        </div>
+        <div class="card-body">
+          <div class="headline">New Game Releases and Esports Highlights</div>
+          <div class="meta">Oct 22, 2025</div>
+        </div>
+      </div>
+
+      <!-- Art & Culture -->
+      <div class="ent-card" data-ent="Art & Culture">
+        <div class="img-wrap">
+          <img src="{% static 'images/entertainment/art.jpg' %}" alt="Art & Culture">
+          <div class="ent-badge">Art & Culture</div>
+        </div>
+        <div class="card-body">
+          <div class="headline">Exploring Global Art, Theatre, and Cultural Events</div>
+          <div class="meta">Oct 22, 2025</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="ent-display" style="display:none; margin-top:30px;">
+      
+        <img id="ent-image" src="" alt="">
+        <div class="ent-text" id="ent-text"></div>
+     
+      <button id="back-btn" style="margin-top:20px; padding:8px 16px; border:none; background:#e91e63; color:#fff; border-radius:6px; cursor:pointer;">← Back</button>
+    </div>
+
+    <hr style="margin:26px 0; border:none; border-top:1px solid rgba(0,0,0,0.1);">
+
+    <a href="{% url 'news:home' %}" class="back-link" style="display:inline-block; color:var(--brand); font-weight:700; text-decoration:none; margin-top: 30px;">← Back to Home</a>
+
+  </div>
+</div>
+
+<script>
+const entDetails = {
+  "Movies": {
+    img: "{% static 'images/entertainment/rrr.jpg' %}",
+    description: `
+      <h3>🎬 Movies — In Depth</h3>
+      <p><strong>Overview:</strong> From independent festival winners to global blockbusters, the Movies section covers everything film-related — releases, reviews, interviews, box-office analysis, and festival coverage.</p>
+      <p><strong>What we cover:</strong></p>
+      <ul>
+        <li><strong>New releases & previews:</strong> Trailer breakdowns, what to expect, and targeted recommendations by mood and genre.</li>
+        <li><strong>Reviews & critiques:</strong> Balanced reviews that explain story, direction, technical merits (cinematography, VFX, sound), and who will enjoy a film.</li>
+        <li><strong>Box office & industry analysis:</strong> Opening weekend numbers, trends across regions, and deep dives into distribution strategies and streaming deals.</li>
+        <li><strong>Filmmaker interviews & profiles:</strong> Director and actor conversations that reveal creative processes, casting, and behind-the-scenes choices.</li>
+      </ul>
+      <p><strong>Why it matters:</strong> Films reflect culture and industry trends — our coverage helps readers decide what to watch and understand the business and art behind the movies.</p>
+    `
+  },
+  "TV Shows": {
+    img: "{% static 'images/entertainment/show.jpg' %}",
+    description: `
+      <h3>📺 TV Shows — Binge, Follow, Discuss</h3>
+      <p><strong>Overview:</strong> Long-form storytelling has exploded across streaming and broadcast platforms. We highlight new seasons, must-watch limited series, episodic recaps, and critical takes on major shows.</p>
+      <p><strong>What we cover:</strong></p>
+      <ul>
+        <li><strong>Season premieres & finales:</strong> Episode guides, key plot points, and whether a show is worth the watch.</li>
+        <li><strong>Recaps & analysis:</strong> Detailed episode recaps, character arcs, and thematic essays for fans who want more than spoilers.</li>
+        <li><strong>Platform moves & renewals:</strong> News about show renewals/cancellations, streaming platform exclusives, and licensing updates.</li>
+        <li><strong>Creator interviews:</strong> Conversations with showrunners, writers, and cast about creative choices and production challenges.</li>
+      </ul>
+      <p><strong>Why it matters:</strong> TV shows often spark cultural conversation — we help readers follow narrative developments, industry shifts, and fan theory communities.</p>
+    `
+  },
+  "Music": {
+    img: "{% static 'images/entertainment/song.jpg' %}",
+    description: `
+      <h3>🎵 Music — Releases, Scenes & Sound</h3>
+      <p><strong>Overview:</strong> Our Music coverage spans album reviews, single releases, concert reports, artist profiles, and features on trends across genres from pop and hip-hop to classical and regional music.</p>
+      <p><strong>What we cover:</strong></p>
+      <ul>
+        <li><strong>New albums & singles:</strong> Reviews that discuss songwriting, production, and standout tracks.</li>
+        <li><strong>Artist profiles:</strong> Backgrounds, career milestones, and interviews with rising and established musicians.</li>
+        <li><strong>Live & festival coverage:</strong> On-the-ground festival write-ups, setlist highlights, and concert recommendations.</li>
+        <li><strong>Industry trends:</strong> Streaming impacts, changes in music marketing, and regional scenes to watch.</li>
+      </ul>
+      <p><strong>Why it matters:</strong> Music shapes moods and movements — we connect listeners with both popular hits and niche discoveries.</p>
+    `
+  },
+  "Celebrity": {
+    img: "{% static 'images/entertainment/info.jpg' %}",
+    description: `
+      <h3>📖 Celebrity — Lifestyle, Profiles & Human Stories</h3>
+      <p><strong>Overview:</strong> Beyond gossip, our Celebrity section focuses on profiles, career retrospectives, philanthropic work, and responsible reporting on personal stories.</p>
+      <p><strong>What we cover:</strong></p>
+      <ul>
+        <li><strong>Profiles & long reads:</strong> In-depth features about careers, artistic growth, and lesser-known stories behind public figures.</li>
+        <li><strong>Red carpet & events:</strong> Fashion highlights, standout moments, and the cultural context behind celebrity appearances.</li>
+        <li><strong>Personal impact & causes:</strong> Coverage of celebrity philanthropy, activism, and initiatives that reach beyond entertainment.</li>
+        <li><strong>Industry movements:</strong> How agencies, talent shifts, and new platforms are reshaping celebrity careers.</li>
+      </ul>
+      <p><strong>Why it matters:</strong> Famous people influence culture; we cover their public work while respecting privacy and focusing on meaningful contributions.</p>
+    `
+  },
+  "Gaming": {
+    img: "{% static 'images/entertainment/gaming.jpg' %}",
+    description: `
+      <h3>🎮 Gaming — Titles, Esports & Culture</h3>
+      <p><strong>Overview:</strong> Gaming is a fast-moving space covering AAA launches, indie gems, esports tournaments, hardware, and the communities that form around games.</p>
+      <p><strong>What we cover:</strong></p>
+      <ul>
+        <li><strong>Game reviews & first impressions:</strong> Analysis of gameplay, story, replayability, and technical performance.</li>
+        <li><strong>Esports & competitive scenes:</strong> Tournament coverage, team profiles, meta commentary, and event calendars.</li>
+        <li><strong>Hardware & peripherals:</strong> Console news, PC builds, controllers, and performance tips.</li>
+        <li><strong>Indie spotlights:</strong> Hidden gems, developer interviews, and original concepts pushing the medium forward.</li>
+      </ul>
+      <p><strong>Why it matters:</strong> Games are entertainment, art, and social platforms — we track releases and the cultural conversations they create.</p>
+    `
+  },
+  "Art & Culture": {
+    img: "{% static 'images/entertainment/art.jpg' %}",
+    description: `
+      <h3>🎭 Art & Culture — Exhibitions, Theatre & Heritage</h3>
+      <p><strong>Overview:</strong> Art & Culture coverage explores visual arts, theatre, dance, literature, cultural heritage, and festivals — with reviews, exhibition guides, and artist interviews.</p>
+      <p><strong>What we cover:</strong></p>
+      <ul>
+        <li><strong>Exhibition reviews:</strong> Show summaries, notable works, and curator perspectives.</li>
+        <li><strong>Theatre & performance:</strong> Play reviews, festival programs, and behind-the-scenes pieces.</li>
+        <li><strong>Heritage & cultural events:</strong> Coverage of local festivals, traditions, and cultural preservation efforts.</li>
+        <li><strong>Artist features:</strong> Profiles that highlight creative practice, influences, and recent projects.</li>
+      </ul>
+      <p><strong>Why it matters:</strong> Arts and culture connect communities — we spotlight creators and events that broaden perspectives and celebrate diversity.</p>
+    `
+  }
+};
+
+document.querySelectorAll('.ent-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const ent = card.dataset.ent;
+    document.getElementById('ent-image').src = entDetails[ent].img;
+    document.getElementById('ent-text').innerHTML = entDetails[ent].description;
+    document.getElementById('all-entertainment').style.display = 'none';
+    document.getElementById('ent-display').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+document.getElementById('back-btn').addEventListener('click', () => {
+  document.getElementById('ent-display').style.display = 'none';
+  document.getElementById('all-entertainment').style.display = 'grid';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+{% endblock %}

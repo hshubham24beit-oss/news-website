@@ -1,0 +1,202 @@
+{% extends "news/base.html" %}
+{% load static %}
+
+{% block title %}
+  {% if hero_title %}
+    {{ hero_title }} — Pillai's News
+  {% elif hero_article %}
+    {{ hero_article.title }} — Pillai's News
+  {% else %}
+    {{ category.name }} — Pillai's News
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<style>
+.ent-hero {
+  position: relative;
+  text-align: center;
+  margin-top: 20px !important;
+  padding-top: 20px !important;
+}
+
+.ent-hero img {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+.ent-hero .hero-title {
+  color: #6a1b9a; /* entertainment accent (purple) */
+  font-size: 36px;
+  font-weight: 700;
+  margin: 15px 0;
+  text-align: center;
+  margin-top: 24px;
+}
+
+.container.category-body {
+  max-width: 1000px;
+  margin: 36px auto;
+  padding: 0 12px;
+  text-align: center;
+}
+
+.large-content {
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px 4%;
+  text-align: justify;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #333;
+  box-sizing: border-box;
+}
+
+.feature-list {
+  margin-top: 28px;
+  text-align: left;
+}
+
+.feature-card {
+  padding: 14px 12px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.03);
+  margin-bottom: 12px;
+}
+
+.feature-card h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+
+.article-meta {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+@media (min-width:900px) {
+  .ent-hero .hero-title { font-size: 44px; }
+}
+
+/* Force hero and content stack vertically */
+.ent-hero,
+.large-content {
+  display: block !important;
+  width: 100% !important;
+  margin-top: 60px;
+}
+
+main.container.main-grid {
+  display: block !important;
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+</style>
+
+{# Render the hero/banner ONLY when the user is viewing the main Entertainment category.
+   Replace the name check below with an id-check if you prefer: {% if category.id == <ENT_ID> %} #}
+{% if category.name == "Entertainment" %}
+<!-- HERO -->
+<section class="ent-hero" aria-label="Hero">
+  <img id="hero-img"
+       src="{% if hero_image %}{{ hero_image }}{% elif hero_article and hero_article.image %}{{ hero_article.image.url }}{% else %}{% static 'images/entertainment-banner.jpg' %}{% endif %}"
+       alt="{% if hero_title %}{{ hero_title }}{% elif hero_article %}{{ hero_article.title }}{% else %}{{ category.name }}{% endif %}">
+
+  <h1 id="hero-title" class="hero-title">
+    {% if hero_title %}
+      {{ hero_title }}
+    {% elif hero_article %}
+      {{ hero_article.title }}
+    {% else %}
+      {{ category.name }}
+    {% endif %}
+  </h1>
+</section>
+{% endif %}
+
+<!-- MAIN CONTENT (entertainment category specific) -->
+<div class="large-content">
+  {# NOTE: update the numeric IDs below to match your Category IDs in the database #}
+  {% if category.id == 20 %}
+    <!-- Movies -->
+    <p><strong>By [Your Name] | October 2025</strong></p>
+    <p>Reviews, box office reports, festival coverage and interviews from the world of cinema.</p>
+    <ul>
+      <li>Film reviews & ratings</li>
+      <li>Festival highlights and exclusives</li>
+      <li>Behind-the-scenes features</li>
+    </ul>
+
+  {% elif category.id == 21 %}
+    <!-- Music -->
+    <p><strong>By [Your Name] | October 2025</strong></p>
+    <p>Album reviews, artist interviews and live gig coverage — from indie to mainstream.</p>
+    <ul>
+      <li>New releases & playlists</li>
+      <li>Artist profiles & interviews</li>
+      <li>Concert reviews and festival roundups</li>
+    </ul>
+
+  {% elif category.id == 22 %}
+    <!-- Television -->
+    <p><strong>By [Your Name] | October 2025</strong></p>
+    <p>Show recaps, streaming recommendations, and analysis of TV’s biggest moments.</p>
+
+  {% elif category.id == 23 %}
+    <!-- Celebrity / Pop Culture -->
+    <p><strong>By [Your Name] | October 2025</strong></p>
+    <p>Celebrity news, culture pieces, and feature interviews from the pop landscape.</p>
+
+  {% elif category.id == 24 %}
+    <!-- Arts & Culture -->
+    <p><strong>By [Your Name] | October 2025</strong></p>
+    <p>Coverage of visual arts, theatre, design and culture — exhibitions, reviews and profiles.</p>
+
+  {% else %}
+    <p>This section brings you the latest from entertainment. Choose a subcategory for full stories, interviews and reviews.</p>
+  {% endif %}
+
+  <hr style="margin:26px 0; border:none; border-top:1px solid rgba(0,0,0,0.1);">
+
+  <a href="{% url 'news:home' %}" 
+     class="back-link" 
+     style="display:inline-block; color:var(--brand); font-weight:700; text-decoration:none; margin-top: 30px;">
+    ← Back to Home
+  </a>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  try {
+    const serverHero = "{{ hero_image|default:'' }}";
+    const serverTitle = "{{ hero_title|default:'' }}";
+
+    if (!serverHero || serverHero.trim() === "") {
+      const params = new URLSearchParams(window.location.search);
+      let img = params.get('hero_image');
+      let title = params.get('hero_title');
+
+      if (img) {
+        img = decodeURIComponent(img.replace(/\+/g, ' '));
+        const heroImgEl = document.getElementById('hero-img');
+        if (heroImgEl) heroImgEl.src = img;
+      }
+
+      if (title) {
+        title = decodeURIComponent(title.replace(/\+/g, ' '));
+        const heroTitleEl = document.getElementById('hero-title');
+        if (heroTitleEl) heroTitleEl.textContent = title;
+      }
+    }
+  } catch (e) {
+    console.error('Hero fallback error:', e);
+  }
+});
+</script>
+{% endblock %}

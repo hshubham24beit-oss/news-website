@@ -27,5 +27,14 @@ urlpatterns = [
     path('sports/', views.sports, name='sports'),
    
     path('sports/<int:category_id>/', views.sports_category, name='sports_category'),
-
+  
+    path('entertainment/', views.entertainment, name='entertainment'),
 ]
+    
+    
+
+
+    
+
+
+
