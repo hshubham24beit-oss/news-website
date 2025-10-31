@@ -5,6 +5,45 @@
 
 {% block content %}
 <style>
+
+  
+/* Force nav links to white and not underlined (inline & loaded last on the page) */
+header .navbar a,
+header .nav-inner a,
+.navbar a,
+.nav-inner a,
+.nav-link,
+.navbar .nav-link,
+.nav-inner .nav-link {
+  color: #fff !important;
+  text-decoration: none !important;
+  outline: none !important;
+}
+
+/* Cover all link states */
+header .navbar a:link,
+header .navbar a:visited,
+header .navbar a:hover,
+header .navbar a:active,
+header .navbar a:focus,
+.navbar a:link,
+.navbar a:visited,
+.navbar a:hover,
+.navbar a:active,
+.navbar a:focus {
+  color: #fff !important;
+  text-decoration: none !important;
+}
+
+/* Optional: hover highlight (no underline) */
+header .navbar a:hover,
+.navbar a:hover {
+  color: #ffcc00 !important; /* change to any highlight color you like */
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+
 main.container.main-grid {
   max-width: 100% !important;
   padding-left: 0 !important;

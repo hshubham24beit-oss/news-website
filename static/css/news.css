@@ -14,8 +14,29 @@ html,body { margin:0; padding:0; font-family: "Roboto", Arial, sans-serif; color
 /* Black nav bar */
 .navbar { background:#111; color:#fff; }
 .nav-inner { display:flex; gap:22px; padding:10px 0; align-items:center; }
-.nav-link { color:#fff; text-decoration:none; padding:8px 12px; font-weight:700; display:inline-block; }
-.nav-link:hover, .nav-link.active { text-decoration: underline; }
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 12px;
+  font-weight: 700;
+  display: inline-block;
+}
+
+/* optional: hover effect, no underline */
+.nav-link:hover,
+.nav-link.active {
+  color: #ffcc00; /* optional yellow highlight */
+  text-decoration: underline; /* remove underline */
+}
+
+/* Also ensure default states aren’t blue/underlined */
+.nav-link:link,
+.nav-link:visited {
+  color: #fff !important;
+  text-decoration: none;
+}
+
 
 /* Main grid layout */
 .main-grid { display:grid; grid-template-columns: 2fr 1fr; gap:28px; padding:36px 0 60px; align-items:start; }
@@ -23,6 +44,10 @@ html,body { margin:0; padding:0; font-family: "Roboto", Arial, sans-serif; color
 /* Left column (hero + cards) */
 .hero { background:transparent; margin-bottom:18px; }
 .hero-img { width:100%; height:320px; object-fit:cover; border-radius:8px; display:block; }
+.hero-img:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.10);
+}
 .hero-title { font-family: "Montserrat", serif; font-weight:800; font-size:40px; margin:18px 0 12px; line-height:1.05; }
 .hero-divider { border:none; border-top:1px solid #e6e6e6; margin: 10px 0 20px; }
 
@@ -35,6 +60,10 @@ html,body { margin:0; padding:0; font-family: "Roboto", Arial, sans-serif; color
 .card-meta { padding:20px; }
 .badge { display:inline-block; background:#d83b36; color:#fff; padding:4px 8px; border-radius:6px; font-size:12px; font-weight:700; margin-bottom:8px; }
 .card-title { margin:6px 0 0; font-size:16px; font-weight:700; }
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.10);
+}
 
 /* More list */
 .more-news .list-item { display:flex; gap:12px; margin:12px 0; padding:12px; background:#fff; border-radius:8px; align-items:center; box-shadow:0 1px 3px rgba(0,0,0,0.04); }

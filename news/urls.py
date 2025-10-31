@@ -29,6 +29,12 @@ urlpatterns = [
     path('sports/<int:category_id>/', views.sports_category, name='sports_category'),
   
     path('entertainment/', views.entertainment, name='entertainment'),
+
+    path("external/<str:external_id>/", views.external_detail, name="external_detail"),
+
+    path('api/hero/', views.hero_api, name='hero_api'),
+
+
 ]
     
     

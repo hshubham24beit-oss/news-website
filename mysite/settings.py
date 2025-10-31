@@ -143,3 +143,13 @@ import os
 OPENWEATHERMAP_API_KEY = "df8491ba3283645da5dfbcb273e88ca3"
 # Optional: If you want to use Open-Meteo (no key), set USE_OPEN_METEO = True
 USE_OPEN_METEO = False
+
+
+
+# settings.py
+import os
+
+USE_EXTERNAL_HERO = "force"   # forces external hero (True also works)
+WORLDNEWS_API_KEY = "8ea67e79888a431fbdcfb1c270aa04bc"  # dev only
+WORLDNEWS_API_URL = "https://api.worldnewsapi.com/top-news"
+
